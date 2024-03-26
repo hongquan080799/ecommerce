@@ -2,6 +2,7 @@
 	import Category from "../components/Category.svelte";
     import Header from "../components/Header.svelte";
 	import Popular from "../components/Popular.svelte";
+	import ProductViewList from "../components/ProductViewList.svelte";
 	import Slider from "../components/Slider.svelte";
 	import ZoneMarket from "../components/ZoneMarket.svelte";
 	import Info from "../components/info.svelte";
@@ -43,6 +44,7 @@
         </div>
     </div>
     <Popular />
+    <ProductViewList />
 </div>
 <style>
     /* Global styles */

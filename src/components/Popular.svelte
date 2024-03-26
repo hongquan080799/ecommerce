@@ -106,6 +106,13 @@
         </div>
        
     </div>
+    <div class="flex justify-center my-4">
+        <button class="items-center bg-white-500 border-2 border-solid border-blue-500 text-blue-500 font-normal py-1 px-2 text-sm rounded-sm hover:bg-blue-700 hover:text-white">
+            Xem thêm chuyên mục  
+            
+        </button>
+
+    </div>
 </div>
 <style>
     .item-container {
