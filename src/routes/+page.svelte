@@ -1,5 +1,6 @@
 <script>
 	import Category from "../components/Category.svelte";
+	import FlashSale from "../components/FlashSale.svelte";
     import Header from "../components/Header.svelte";
 	import Popular from "../components/Popular.svelte";
 	import ProductViewList from "../components/ProductViewList.svelte";
@@ -44,6 +45,7 @@
         </div>
     </div>
     <Popular />
+    <FlashSale />
     <ProductViewList />
 </div>
 <style>
