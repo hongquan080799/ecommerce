@@ -1,12 +1,15 @@
 <script>
+	import Slogan from './../components/Slogan.svelte';
 	import Category from "../components/Category.svelte";
 	import FlashSale from "../components/FlashSale.svelte";
     import Header from "../components/Header.svelte";
 	import Popular from "../components/Popular.svelte";
+	import PopularBrand from "../components/PopularBrand.svelte";
 	import ProductViewList from "../components/ProductViewList.svelte";
 	import Slider from "../components/Slider.svelte";
 	import ZoneMarket from "../components/ZoneMarket.svelte";
 	import Info from "../components/info.svelte";
+	import Footer from '../components/Footer.svelte';
 
 </script>
 <Header />
@@ -47,6 +50,9 @@
     <Popular />
     <FlashSale />
     <ProductViewList />
+    <PopularBrand />
+    <Slogan />
+    <Footer />
 </div>
 <style>
     /* Global styles */
