@@ -39,7 +39,7 @@
 		display: flex;
 		flex-direction: column;
 		box-shadow: -1px 3px 7px 0px rgba(188, 188, 188, 0.75);
-		padding: 5px 8px;
+		padding: 1rem 8px;
 		cursor: pointer;
 	}
 	.product-item img {
