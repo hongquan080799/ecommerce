@@ -1,3 +1,11 @@
+<script lang="ts">
+	/** @type {import('./$types').PageData} */
+	export let data;
+	const { loadedData } = data.props;
+
+	console.log(data);
+</script>
+
 <p class="text-lg font-bold">Danh mục</p>
 
 <div class="relative mt-5 overflow-x-auto shadow-md sm:rounded-lg">
@@ -44,168 +52,54 @@
 						<label for="checkbox-all-search" class="sr-only">checkbox</label>
 					</div>
 				</th>
-				<th scope="col" class="px-6 py-3"> Product name </th>
-				<th scope="col" class="px-6 py-3"> Color </th>
-				<th scope="col" class="px-6 py-3"> Category </th>
-				<th scope="col" class="px-6 py-3"> Price </th>
-				<th scope="col" class="px-6 py-3"> Action </th>
+				<th scope="col" class="px-6 py-3">Mã danh mục</th>
+				<th scope="col" class="px-6 py-3">Tên danh mục</th>
+				<th scope="col" class="px-6 py-3">Logo</th>
+				<th scope="col" class="px-6 py-3">Time</th>
+				<th scope="col" class="px-6 py-3">Updated by</th>
+				<th scope="col" class="px-6 py-3"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr
-				class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-			>
-				<td class="w-4 p-4">
-					<div class="flex items-center">
-						<input
-							id="checkbox-table-search-1"
-							type="checkbox"
-							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-						/>
-						<label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-					</div>
-				</td>
-				<th
-					scope="row"
-					class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+			{#each loadedData as data}
+				<tr
+					class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
 				>
-					Apple MacBook Pro 17"
-				</th>
-				<td class="px-6 py-4"> Silver </td>
-				<td class="px-6 py-4"> Laptop </td>
-				<td class="px-6 py-4"> $2999 </td>
-				<td class="px-6 py-4">
-					<a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-				</td>
-			</tr>
-			<tr
-				class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-			>
-				<td class="w-4 p-4">
-					<div class="flex items-center">
-						<input
-							id="checkbox-table-search-2"
-							type="checkbox"
-							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-						/>
-						<label for="checkbox-table-search-2" class="sr-only">checkbox</label>
-					</div>
-				</td>
-				<th
-					scope="row"
-					class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-				>
-					Microsoft Surface Pro
-				</th>
-				<td class="px-6 py-4"> White </td>
-				<td class="px-6 py-4"> Laptop PC </td>
-				<td class="px-6 py-4"> $1999 </td>
-				<td class="px-6 py-4">
-					<a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-				</td>
-			</tr>
-			<tr
-				class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-			>
-				<td class="w-4 p-4">
-					<div class="flex items-center">
-						<input
-							id="checkbox-table-search-3"
-							type="checkbox"
-							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-						/>
-						<label for="checkbox-table-search-3" class="sr-only">checkbox</label>
-					</div>
-				</td>
-				<th
-					scope="row"
-					class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-				>
-					Magic Mouse 2
-				</th>
-				<td class="px-6 py-4"> Black </td>
-				<td class="px-6 py-4"> Accessories </td>
-				<td class="px-6 py-4"> $99 </td>
-				<td class="px-6 py-4">
-					<a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-				</td>
-			</tr>
-			<tr
-				class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-			>
-				<td class="w-4 p-4">
-					<div class="flex items-center">
-						<input
-							id="checkbox-table-3"
-							type="checkbox"
-							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-						/>
-						<label for="checkbox-table-3" class="sr-only">checkbox</label>
-					</div>
-				</td>
-				<th
-					scope="row"
-					class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-				>
-					Apple Watch
-				</th>
-				<td class="px-6 py-4"> Silver </td>
-				<td class="px-6 py-4"> Accessories </td>
-				<td class="px-6 py-4"> $179 </td>
-				<td class="px-6 py-4">
-					<a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-				</td>
-			</tr>
-			<tr
-				class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-			>
-				<td class="w-4 p-4">
-					<div class="flex items-center">
-						<input
-							id="checkbox-table-3"
-							type="checkbox"
-							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-						/>
-						<label for="checkbox-table-3" class="sr-only">checkbox</label>
-					</div>
-				</td>
-				<th
-					scope="row"
-					class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-				>
-					iPad
-				</th>
-				<td class="px-6 py-4"> Gold </td>
-				<td class="px-6 py-4"> Tablet </td>
-				<td class="px-6 py-4"> $699 </td>
-				<td class="px-6 py-4">
-					<a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-				</td>
-			</tr>
-			<tr class="bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-600">
-				<td class="w-4 p-4">
-					<div class="flex items-center">
-						<input
-							id="checkbox-table-3"
-							type="checkbox"
-							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
-						/>
-						<label for="checkbox-table-3" class="sr-only">checkbox</label>
-					</div>
-				</td>
-				<th
-					scope="row"
-					class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-				>
-					Apple iMac 27"
-				</th>
-				<td class="px-6 py-4"> Silver </td>
-				<td class="px-6 py-4"> PC Desktop </td>
-				<td class="px-6 py-4"> $3999 </td>
-				<td class="px-6 py-4">
-					<a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Edit</a>
-				</td>
-			</tr>
+					<td class="w-4 p-4">
+						<div class="flex items-center">
+							<input
+								id="checkbox-table-search-1"
+								type="checkbox"
+								class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-800"
+							/>
+							<label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+						</div>
+					</td>
+					<td class="px-6 py-4">{data.id}</td>
+					<th
+						scope="row"
+						class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+					>
+						{data.name}
+					</th>
+
+					<td class="px-6 py-4"> Laptop </td>
+					<td class="px-6 py-4">12:00:00</td>
+					<td class="px-6 py-4">Quan</td>
+					<td class="px-6 py-4">
+						<button
+							type="button"
+							class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+							>Sửa</button
+						>
+						<button
+							type="button"
+							class="mb-2 me-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+							>Xóa</button
+						>
+					</td>
+				</tr>
+			{/each}
 		</tbody>
 	</table>
 </div>

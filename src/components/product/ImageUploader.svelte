@@ -1,12 +1,19 @@
 <script lang="ts">
-	let file: string | Blob;
-	const apiUrl = 'http://localhost:8080' + '/file/upload';
-	console.log(apiUrl);
+	import { BASE_URL } from '../../utils/EcommerceConst';
+
+	let file: string | Blob | undefined;
+	const apiUrl = BASE_URL + '/file/upload';
 	export let onImageUploaded: (imageUrl: string) => void;
+	export let isClear = false;
+
+	$: if (isClear) {
+		file = undefined;
+		isClear = false;
+	}
 
 	async function handleFileUpload(event: any) {
 		file = event.target.files[0];
-		console.log(file);
+		if (!file) return;
 		const formData = new FormData();
 		formData.append('file', file);
 
@@ -38,5 +45,6 @@
 		aria-describedby="user_avatar_help"
 		id="user_avatar"
 		type="file"
+		bind:value={file}
 	/>
 </div>

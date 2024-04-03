@@ -1,16 +1,40 @@
-<script>
+<script lang="ts">
+	import { goto } from '$app/navigation';
 	import ImageUploader from '../../../../components/product/ImageUploader.svelte';
+	import * as api from '../../../../api';
+	import type { Category } from '../../../../types/Category';
 	let imagesPath = '';
+	let isClear = false;
+	let category: Partial<Category> = {};
+	const clearImage = () => {
+		imagesPath = '';
+		isClear = true;
+	};
+
+	const insertCategory = async () => {
+		if (imagesPath !== '') {
+			category.imageUrl = imagesPath;
+		}
+		try {
+			await api.categoryApi.insertCategory(category);
+			alert('Thêm danh mục thành công');
+			goto('/admin/category');
+		} catch (error) {
+			console.log(error);
+			alert('Thêm danh mục thất bại');
+		}
+	};
 </script>
 
 <p class="mb-10 text-lg font-bold">Thêm danh mục</p>
 
-<form class="form-container">
+<form class="form-container" on:submit={insertCategory}>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Tên danh mục</label
 		>
 		<input
+			bind:value={category.name}
 			type="text"
 			id="firstName"
 			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -21,10 +45,10 @@
 			>Logo</label
 		>
 		<div class="relative block w-full">
-			<ImageUploader onImageUploaded={(imageUrl) => (imagesPath = imageUrl)} />
+			<ImageUploader onImageUploaded={(imageUrl) => (imagesPath = imageUrl)} {isClear} />
 			{#if imagesPath != ''}
 				<div class="image-container">
-					<div class="close" on:click={() => (imagesPath = '')}>
+					<div class="close" on:click={clearImage}>
 						<svg
 							class="h-5 w-5 text-gray-800 dark:text-white"
 							aria-hidden="true"
