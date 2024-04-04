@@ -3,11 +3,21 @@
 	import Category from '../../../components/Category.svelte';
 	import * as api from '../../../api';
 	import moment from 'moment';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	const parentId = $page.url.searchParams.get('parentId');
 
-	/** @type {import('./$types').PageData} */
-	export let data;
-	let { loadedData } = data.props;
-	let filterData = loadedData as Category[];
+	let loadedData: Category[] = [];
+	onMount(async () => {
+		try {
+			console.log('parentId' + parentId);
+			const data = await api.categoryApi.loadCategoriesWithParentId(Number(parentId));
+			loadedData = data as unknown as Category[];
+			filterData = loadedData;
+		} catch (error) {
+			console.log(error);
+		}
+	});
 	let search = '';
 	const onSearch = () => {
 		if (search.length > 0) {
@@ -31,10 +41,7 @@
 			alert('Xóa danh mục thất bại');
 		}
 	};
-	const onNavigateSubCategories = (id: number) => {
-		const subCatUrl = '/admin/sub-category?parentId=' + id;
-		goto(subCatUrl);
-	};
+	let filterData = loadedData as Category[];
 </script>
 
 <p class="text-lg font-bold">Danh mục</p>
@@ -71,7 +78,7 @@
 			/>
 		</div>
 		<button
-			on:click={() => goto('/admin/category/create')}
+			on:click={() => goto('/admin/sub-category/create?parentId=' + parentId)}
 			type="button"
 			class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 			>Thêm</button
@@ -138,12 +145,6 @@
 							type="button"
 							class="mb-2 me-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
 							on:click={() => onDelete(data.id)}>Xóa</button
-						>
-						<button
-							on:click={() => onNavigateSubCategories(data.id)}
-							type="button"
-							class="mb-2 me-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800"
-							>Thêm danh mục con</button
 						>
 					</td>
 				</tr>
