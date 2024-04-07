@@ -1,43 +1,29 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import ImageUploader from '../../../../components/product/ImageUploader.svelte';
-	import * as api from '../../../../api';
-	import type { Brand } from '../../../../types/Brand';
+	import TechnicalInfoInput from '$lib/product/TechnicalInfoInput.svelte';
+	import type { Product } from '../../../../types/Product';
+	import RichTextEditor from '$lib/product/RichTextEditor.svelte';
 	let imagesPath = '';
 	let isClear = false;
-	let brand: Partial<Brand> = {};
+	let product: Partial<Product> = {};
 	const clearImage = () => {
 		imagesPath = '';
 		isClear = true;
-	};
-
-	const insertCategory = async () => {
-		if (imagesPath !== '') {
-			brand.imageUrl = imagesPath;
-		}
-		try {
-			await api.brandApi.insertBrand(brand);
-			alert('Thêm nhãn hàng thành công');
-			goto('/admin/brand');
-		} catch (error) {
-			console.log(error);
-			alert('Thêm nhãn hàng thất bại');
-		}
 	};
 </script>
 
 <p class="mb-10 text-lg font-bold">Thêm sản phẩm</p>
 
-<form class="form-container" on:submit={insertCategory}>
+<form class="form-container">
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Tên sản phẩm</label
 		>
 		<input
-			bind:value={brand.name}
 			type="text"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class=" block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
@@ -46,42 +32,39 @@
 		>
 		<textarea
 			rows="4"
-			bind:value={brand.name}
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Thông tin kỹ thuật</label
 		>
-		<input
-			bind:value={brand.name}
-			type="text"
-			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
-		/>
+		<div class="block w-5/6">
+			<TechnicalInfoInput
+				onHandle={(result) => {
+					product.technicalInfo = result;
+					console.log(product);
+				}}
+			/>
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Thông tin sản phẩm</label
 		>
-		<input
-			bind:value={brand.name}
-			type="text"
-			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
-		/>
+		<div class="block w-5/6">
+			<RichTextEditor />
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Giá</label
 		>
 		<input
-			bind:value={brand.name}
 			type="text"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
@@ -89,10 +72,9 @@
 			>Khuyến mãi</label
 		>
 		<input
-			bind:value={brand.name}
 			type="text"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
@@ -100,10 +82,9 @@
 			>Số lượng</label
 		>
 		<input
-			bind:value={brand.name}
 			type="number"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
@@ -111,10 +92,9 @@
 			>Trạng thái</label
 		>
 		<input
-			bind:value={brand.name}
 			type="text"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
@@ -122,10 +102,9 @@
 			>Nhãn hàng</label
 		>
 		<input
-			bind:value={brand.name}
 			type="text"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
@@ -133,17 +112,16 @@
 			>Danh mục</label
 		>
 		<input
-			bind:value={brand.name}
 			type="text"
 			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Hình ảnh</label
 		>
-		<div class="relative block w-full">
+		<div class="relative block w-5/6">
 			<ImageUploader onImageUploaded={(imageUrl) => (imagesPath = imageUrl)} {isClear} />
 			{#if imagesPath != ''}
 				<div class="image-container">
