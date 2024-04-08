@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 
 	import { onMount } from 'svelte';
 	import { BASE_URL } from '../../utils/EcommerceConst';
 	let editorElement;
+	export let onChange: (result: any) => void;
 	/**
 	 * @type {import("@ckeditor/ckeditor5-editor-classic").ClassicEditor}
 	 */
@@ -49,6 +50,7 @@
 
 			// Verify if the DOM element exists
 			editorElement = document.querySelector('#editor');
+
 			if (!editorElement) {
 				throw new Error('Editor element not found');
 			}
@@ -58,17 +60,19 @@
 			editorInstance.plugins.get('FileRepository').createUploadAdapter = (loader) => {
 				return new ImageUploadAdapter(loader);
 			};
+			if (editorInstance) {
+				editorInstance.model.document.on('change', handleEditorChange);
+			}
 		} catch (error) {
 			console.error('Error initializing CKEditor:', error);
 		}
 	});
 
-	function getValueFromEditor() {
+	function handleEditorChange() {
 		if (editorInstance) {
-			console.log(editorInstance.getData());
+			onChange(editorInstance.getData());
 		}
 	}
 </script>
 
 <div id="editor"></div>
-<button on:click={getValueFromEditor}>Get Value</button>

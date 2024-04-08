@@ -9,10 +9,11 @@
 	const onSubmit = () => {
 		technicleInfo = technicleInfo.filter((item) => item.key !== '' && item.value !== '');
 		onHandle(JSON.stringify(technicleInfo));
+		formModal = false;
 	};
 </script>
 
-<Button color={'blue'} on:click={() => (formModal = true)}>Form modal</Button>
+<Button color={'blue'} on:click={() => (formModal = true)}>Chọn</Button>
 
 <Modal title="Thông số kỹ thuật" bind:open={formModal} size="lg" autoclose={false} class="w-full">
 	<Button color="blue" on:click={onAddItem}>Thêm</Button>

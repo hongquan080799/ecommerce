@@ -1,28 +1,34 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import ImageUploader from '../../../../components/product/ImageUploader.svelte';
 	import TechnicalInfoInput from '$lib/product/TechnicalInfoInput.svelte';
 	import type { Product } from '../../../../types/Product';
 	import RichTextEditor from '$lib/product/RichTextEditor.svelte';
-	let imagesPath = '';
+	import CategoryPicker from '$lib/product/CategoryPicker.svelte';
+	import MultiImageUploader from '../../../../components/product/MultiImageUploader.svelte';
+	import BrandPicker from '$lib/product/BrandPicker.svelte';
 	let isClear = false;
 	let product: Partial<Product> = {};
-	const clearImage = () => {
-		imagesPath = '';
+	const clearImage = (imageUrl: string) => {
+		productImages = productImages.filter((item) => !item.startsWith(imageUrl));
+		product.images = productImages;
 		isClear = true;
+	};
+	let productImages: string[] = [];
+	const onProductSubmit = () => {
+		console.log(product);
 	};
 </script>
 
 <p class="mb-10 text-lg font-bold">Thêm sản phẩm</p>
 
-<form class="form-container">
+<form class="form-container" on:submit={onProductSubmit}>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Tên sản phẩm</label
 		>
 		<input
+			bind:value={product.name}
 			type="text"
-			id="firstName"
+			id="name"
 			class=" block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
@@ -32,19 +38,19 @@
 		>
 		<textarea
 			rows="4"
-			id="firstName"
+			id="description"
+			bind:value={product.description}
 			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
-		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+		<label for="technicalInfo" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Thông tin kỹ thuật</label
 		>
 		<div class="block w-5/6">
 			<TechnicalInfoInput
 				onHandle={(result) => {
 					product.technicalInfo = result;
-					console.log(product);
 				}}
 			/>
 		</div>
@@ -54,7 +60,7 @@
 			>Thông tin sản phẩm</label
 		>
 		<div class="block w-5/6">
-			<RichTextEditor />
+			<RichTextEditor onChange={(result) => (product.productInfo = result)} />
 		</div>
 	</div>
 	<div class="form-group">
@@ -62,8 +68,9 @@
 			>Giá</label
 		>
 		<input
-			type="text"
-			id="firstName"
+			type="number"
+			id="price"
+			bind:value={product.price}
 			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
@@ -72,8 +79,9 @@
 			>Khuyến mãi</label
 		>
 		<input
-			type="text"
-			id="firstName"
+			type="number"
+			id="discount"
+			bind:value={product.discount}
 			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
@@ -83,7 +91,8 @@
 		>
 		<input
 			type="number"
-			id="firstName"
+			id="number"
+			bind:value={product.quantity}
 			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
@@ -92,8 +101,8 @@
 			>Trạng thái</label
 		>
 		<input
-			type="text"
-			id="firstName"
+			type="tsext"
+			id="status"
 			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
@@ -101,54 +110,66 @@
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Nhãn hàng</label
 		>
-		<input
-			type="text"
-			id="firstName"
-			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
-		/>
+		<div class="block w-5/6">
+			<BrandPicker
+				handleSubmit={(result) => {
+					product.brandId = result?.id;
+				}}
+			/>
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Danh mục</label
 		>
-		<input
-			type="text"
-			id="firstName"
-			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
-		/>
+		<div class="block w-5/6">
+			<CategoryPicker
+				handleSubmit={(result) => {
+					product.categoryId = result?.id;
+				}}
+			/>
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Hình ảnh</label
 		>
 		<div class="relative block w-5/6">
-			<ImageUploader onImageUploaded={(imageUrl) => (imagesPath = imageUrl)} {isClear} />
-			{#if imagesPath != ''}
-				<div class="image-container">
-					<div class="close" on:click={clearImage}>
-						<svg
-							class="h-5 w-5 text-gray-800 dark:text-white"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18 17.94 6M18 18 6.06 6"
-							/>
-						</svg>
+			<MultiImageUploader
+				onImageUploaded={(imageUrls) => {
+					productImages = imageUrls; // Update the reactive variable
+					product.images = imageUrls;
+				}}
+				{isClear}
+			/>
+			<div class="mt-10 flex max-w-96 flex-wrap">
+				{#each productImages as imagesPath}
+					<div class="image-container">
+						<div class="close" on:click={() => clearImage(imagesPath)}>
+							<svg
+								class="h-5 w-5 text-gray-800 dark:text-white"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								fill="none"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M6 18 17.94 6M18 18 6.06 6"
+								/>
+							</svg>
+						</div>
+						<div class="item">
+							<img src={imagesPath} alt="test" />
+						</div>
 					</div>
-					<div class="item">
-						<img src={imagesPath} alt="test" />
-					</div>
-				</div>
-			{/if}
+				{/each}
+			</div>
 		</div>
 	</div>
 	<button
@@ -173,9 +194,8 @@
 		width: 70%;
 	}
 	.image-container {
-		position: absolute;
-		left: 0;
-		margin-top: 20px;
+		position: relative;
+		margin: 10px 20px;
 	}
 	.image-container .close {
 		position: absolute;
