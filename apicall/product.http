@@ -1,0 +1,20 @@
+POST http://localhost:8080/product
+Content-Type: application/json
+
+{
+  "name": "test sản phẩm 02",
+  "description": "sản phẩm này để tesst",
+  "technicalInfo": "[{\"key\":\"may\",\"value\":\"1\"}]",
+  "productInfo": "<p>sản phẩm này tsst</p><p><img src=\"http://localhost:8080/public/images/896161bd8b39fc9f6b47af36c3df5b3491db948d_1013.png\" width=\"64\" height=\"64\"></p><p>&nbsp;</p>",
+  "price": 12000000,
+  "discount": 0,
+  "quantity": 10,
+  "brandId": 1,
+  "categoryId": 4,
+  "images": [
+    "http://localhost:8080/public/images/5045b5d1b46f12546a4b2eb6865a1dd0abfe7192_906.png",
+    "http://localhost:8080/public/images/00f1fb941d1880dc17804b8af250c4ca0576fc4d_1013.png",
+    "http://localhost:8080/public/images/c6d16421eafc5cd6ee47fd01523cfb713de524ca_1238.png",
+    "http://localhost:8080/public/images/805183072dd8e0154a0a83bd1b254d2ffda66d10_3320.png"
+  ]
+}

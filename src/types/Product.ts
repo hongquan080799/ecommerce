@@ -15,4 +15,12 @@ export type Product = {
     createdBy: string;
     updatedAt: Date;
     updatedBy: string;
+    categoryName?: string;
+    brandName?: string
+}
+
+export enum ProductStatus {
+    Active = 'Active',
+    Inactive = 'Inactive',
+    
 }

@@ -2,11 +2,13 @@
 	import { goto } from '$app/navigation';
 	import * as api from '../../../api';
 	import moment from 'moment';
-	import type { Brand } from '../../../types/Brand';
+	import type { Product } from '../../../types/Product';
+	import ImageSlider from '$lib/product/ImageSlider.svelte';
+	import { formattedPrice } from '../../../utils/Format';
 	/** @type {import('./$types').PageData} */
 	export let data;
 	let { loadedData } = data.props;
-	let filterData = loadedData as Brand[];
+	let filterData = loadedData as Product[];
 	let search = '';
 	const onSearch = () => {
 		if (search.length > 0) {
@@ -14,25 +16,25 @@
 				item.name.toLowerCase().includes(search.toLowerCase())
 			);
 		} else {
-			filterData = loadedData as Brand[];
+			filterData = loadedData as Product[];
 		}
 	};
 	const onDelete = async (id: number) => {
-		const confirmed = confirm('bạn có muốn xóa nhãn hàng này không ?');
+		const confirmed = confirm('bạn có muốn xóa sản phẩm này không ?');
 		if (!confirmed) return;
 		try {
 			await api.brandApi.deleteBrand(id);
-			alert('Xóa nhãn hàng thành công');
-			loadedData = (await api.brandApi.loadBrands()) as unknown as Brand[];
+			alert('Xóa sản phẩm thành công');
+			loadedData = (await api.brandApi.loadBrands()) as unknown as Product[];
 			onSearch();
 		} catch (error) {
 			console.log(error);
-			alert('Xóa nhãn hàng thất bại');
+			alert('Xóa sản phẩm thất bại');
 		}
 	};
 </script>
 
-<p class="text-lg font-bold">Nhãn hàng</p>
+<p class="text-lg font-bold">Sản phẩm</p>
 
 <div class="relative mt-5 overflow-x-auto shadow-md sm:rounded-lg">
 	<div class="flex justify-between bg-white pb-4 dark:bg-gray-900">
@@ -66,7 +68,7 @@
 			/>
 		</div>
 		<button
-			on:click={() => goto('/admin/brand/create')}
+			on:click={() => goto('/admin/product/create')}
 			type="button"
 			class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 			>Thêm</button
@@ -85,9 +87,15 @@
 						<label for="checkbox-all-search" class="sr-only">checkbox</label>
 					</div>
 				</th>
-				<th scope="col" class="px-6 py-3">Mã nhãn hàng</th>
-				<th scope="col" class="px-6 py-3">Tên nhãn hàng</th>
-				<th scope="col" class="px-6 py-3">Logo</th>
+				<th scope="col" class="px-6 py-3">Mã sản phẩm</th>
+				<th scope="col" class="px-6 py-3">Tên sản phẩm</th>
+				<th scope="col" class="px-6 py-3">Mô tả</th>
+				<th scope="col" class="px-6 py-3">Hình ảnh</th>
+				<th scope="col" class="px-6 py-3">Giá</th>
+				<th scope="col" class="px-6 py-3">Khuyễn mãi</th>
+				<th scope="col" class="px-6 py-3">Danh mục</th>
+				<th scope="col" class="px-6 py-3">Nhãn hàng</th>
+				<th scope="col" class="px-6 py-3">Số lượng</th>
 				<th scope="col" class="px-6 py-3">Time</th>
 				<th scope="col" class="px-6 py-3">Updated by</th>
 				<th scope="col" class="px-6 py-3"></th>
@@ -115,14 +123,32 @@
 					>
 						{data.name}
 					</th>
-
 					<td class="w-15 px-6 py-4">
-						<img class="w-14" src={data.imageUrl} alt={data.name} />
+						{data.description}
+					</td>
+
+					<td class="w-36 px-6 py-4">
+						<ImageSlider imageList={data.images} />
+					</td>
+					<td class="px-6 py-4">
+						{formattedPrice(data.price)}
+					</td>
+					<td class="px-6 py-4">
+						{`${data.discount * 100} %`}
+					</td>
+					<td class="w-15 px-6 py-4">
+						{data.categoryName}
+					</td>
+					<td class="w-15 px-6 py-4">
+						{data.brandName}
+					</td>
+					<td class="w-15 px-6 py-4">
+						{data.quantity}
 					</td>
 					<td class="px-6 py-4">
 						{moment(data.updatedAt).format('DD/MM/YYYY HH:mm:ss')}
 					</td>
-					<td class="px-6 py-4">Quan</td>
+					<td class="px-6 py-4">{data.updatedBy}</td>
 					<td class="px-6 py-4">
 						<button
 							on:click={() => goto('/admin/brand/update/' + data.id)}

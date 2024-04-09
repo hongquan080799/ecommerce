@@ -20,9 +20,8 @@
 		try {
 			await api.categoryApi.updateCategory(category);
 			alert('Sửa danh mục thành công');
-			goto('/admin/category');
+			goto('/admin/sub-category?parentId=' + category.parentId);
 		} catch (error) {
-			console.log(error);
 			alert('Sửa danh mục thất bại');
 		}
 	};

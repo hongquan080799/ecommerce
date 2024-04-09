@@ -20,7 +20,6 @@
 			filterData = category;
 		}
 	};
-	let technicleInfo: { key: string; value: string }[] = [];
 	onMount(async () => {
 		category = await api.categoryApi.loadCategories();
 		filterData = category;
@@ -29,8 +28,8 @@
 		if (cat.parentId === null) {
 			category = await api.categoryApi.loadCategoriesWithParentId(Number(cat.id));
 			filterData = category;
-			selectedCategory = cat;
 		}
+		selectedCategory = cat;
 	};
 	const onBack = async () => {
 		category = await api.categoryApi.loadCategories();

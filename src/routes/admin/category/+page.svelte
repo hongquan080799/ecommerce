@@ -102,6 +102,7 @@
 			{#each filterData as data}
 				<tr
 					class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+					on:click={() => onNavigateSubCategories(data.id)}
 				>
 					<td class="w-4 p-4">
 						<div class="flex items-center">
@@ -131,6 +132,7 @@
 					<td class="px-6 py-4">
 						<button
 							type="button"
+							on:click={() => goto('/admin/category/update/' + data.id)}
 							class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 							>Sửa</button
 						>
@@ -138,12 +140,6 @@
 							type="button"
 							class="mb-2 me-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
 							on:click={() => onDelete(data.id)}>Xóa</button
-						>
-						<button
-							on:click={() => onNavigateSubCategories(data.id)}
-							type="button"
-							class="mb-2 me-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800"
-							>Thêm danh mục con</button
 						>
 					</td>
 				</tr>

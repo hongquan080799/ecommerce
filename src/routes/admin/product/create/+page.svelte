@@ -5,6 +5,8 @@
 	import CategoryPicker from '$lib/product/CategoryPicker.svelte';
 	import MultiImageUploader from '../../../../components/product/MultiImageUploader.svelte';
 	import BrandPicker from '$lib/product/BrandPicker.svelte';
+	import * as api from '../../../../api';
+	import { goto } from '$app/navigation';
 	let isClear = false;
 	let product: Partial<Product> = {};
 	const clearImage = (imageUrl: string) => {
@@ -13,8 +15,15 @@
 		isClear = true;
 	};
 	let productImages: string[] = [];
-	const onProductSubmit = () => {
-		console.log(product);
+	const onProductSubmit = async () => {
+		try {
+			await api.productApi.insertProduct(product);
+			alert('Thêm sản phẩm thành công');
+			goto('/admin/product');
+		} catch (error) {
+			console.log(error);
+			alert('Thêm sản phẩm thất bại');
+		}
 	};
 </script>
 
