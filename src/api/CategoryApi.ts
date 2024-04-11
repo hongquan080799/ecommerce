@@ -87,6 +87,27 @@ export const loadCategories = async (): Promise<Category[]> => {
         }
     })
 }
+export const loadCategoriesWithId = async (id: number): Promise<Category> => {
+    return new Promise<Category>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl+ "/" + id , {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 export const loadCategoriesWithParentId = async (parentId: number): Promise<Category[]> => {
     return new Promise<Category[]>(async (resolve, reject) => {
         try {

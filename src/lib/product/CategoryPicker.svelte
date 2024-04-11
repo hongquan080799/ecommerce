@@ -10,6 +10,7 @@
 	let filterData: Category[] = [];
 	let search = '';
 	let selectedCategory: Category | undefined;
+	export let selectedCategoryId: number | undefined = undefined;
 
 	const onSearch = () => {
 		if (search.length > 0) {
@@ -21,8 +22,20 @@
 		}
 	};
 	onMount(async () => {
-		category = await api.categoryApi.loadCategories();
-		filterData = category;
+		if (selectedCategoryId) {
+			api.categoryApi.loadCategoriesWithId(selectedCategoryId).then((res) => {
+				selectedCategory = res;
+			});
+			const subCategory: Category = await api.categoryApi.loadCategoriesWithId(
+				Number(selectedCategoryId)
+			);
+			category = await api.categoryApi.loadCategoriesWithParentId(Number(subCategory.parentId));
+
+			filterData = category;
+		} else {
+			category = await api.categoryApi.loadCategories();
+			filterData = category;
+		}
 	});
 	const onSelect = async (cat: Category) => {
 		if (cat.parentId === null) {

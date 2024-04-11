@@ -2,7 +2,7 @@
 	import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte';
 	let formModal = false;
 	export let onHandle: (result: string) => void;
-	let technicleInfo: { key: string; value: string }[] = [];
+	export let technicleInfo: { key: string; value: string }[] = [];
 	const onAddItem = () => {
 		technicleInfo = [...technicleInfo, { key: '', value: '' }];
 	};

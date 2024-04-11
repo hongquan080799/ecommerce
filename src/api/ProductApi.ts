@@ -1,6 +1,6 @@
 import type { Product } from "../types/Product";
 import { BASE_URL } from "../utils/EcommerceConst";
-const apiUrl = BASE_URL + '/brand';
+const apiUrl = BASE_URL + '/product';
 export async function insertProduct(data: Partial<Product>): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
         try {
@@ -13,6 +13,7 @@ export async function insertProduct(data: Partial<Product>): Promise<void> {
             });
     
             if (response.ok) {
+                console.log(response)
                 resolve()
             } else {
                 reject(response.status)
@@ -23,7 +24,7 @@ export async function insertProduct(data: Partial<Product>): Promise<void> {
     })
 }
 
-export async function updateBrand(data: Partial<Product>): Promise<void> {
+export async function updateProduct(data: Partial<Product>): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
         try {
             const response = await fetch(apiUrl, {

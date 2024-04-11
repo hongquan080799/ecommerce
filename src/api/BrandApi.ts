@@ -87,3 +87,24 @@ export const loadBrands = async (): Promise<Brand[]> => {
         }
     })
 }
+export const loadBrandsWithId = async (id: number): Promise<Brand> => {
+    return new Promise<Brand>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl + "/" + id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

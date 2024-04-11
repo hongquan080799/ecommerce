@@ -1,79 +1,191 @@
 <script lang="ts">
-	export let data;
-
-	import { goto } from '$app/navigation';
-	import ImageUploader from '../../../../../components/product/ImageUploader.svelte';
+	import TechnicalInfoInput from '$lib/product/TechnicalInfoInput.svelte';
+	import type { Product } from '../../../../../types/Product';
+	import RichTextEditor from '$lib/product/RichTextEditor.svelte';
+	import CategoryPicker from '$lib/product/CategoryPicker.svelte';
+	import MultiImageUploader from '../../../../../components/product/MultiImageUploader.svelte';
+	import BrandPicker from '$lib/product/BrandPicker.svelte';
 	import * as api from '../../../../../api';
-	import type { Brand } from '../../../../../types/Brand';
-	let brand: Partial<Brand> = data;
-	let imagesPath = brand.imageUrl;
+	import { goto } from '$app/navigation';
+	import Category from '../../../../../components/Category.svelte';
+	/** @type {import('./$types').PageData} */
+	export let data;
 	let isClear = false;
-	const clearImage = () => {
-		imagesPath = '';
+	let product: Partial<Product> = data;
+	const clearImage = (imageUrl: string) => {
+		productImages = productImages.filter((item) => !item.startsWith(imageUrl));
+		product.images = productImages;
 		isClear = true;
 	};
-
-	const updateCategory = async () => {
-		if (imagesPath !== '') {
-			brand.imageUrl = imagesPath;
-		}
+	console.log(product);
+	let productImages: string[] = product.images ? product.images : [];
+	const onProductSubmit = async () => {
 		try {
-			await api.brandApi.updateBrand(brand);
-			alert('Sửa nhãn hàng thành công');
-			goto('/admin/brand');
+			await api.productApi.updateProduct(product);
+			alert('Sửa sản phẩm thành công');
+			goto('/admin/product');
 		} catch (error) {
 			console.log(error);
-			alert('Sửa nhãn hàng thất bại');
+			alert('Sửa sản phẩm thất bại');
 		}
 	};
 </script>
 
-<p class="mb-10 text-lg font-bold">Thêm nhãn hàng</p>
+<p class="mb-10 text-lg font-bold">Sửa sản phẩm</p>
 
-<form class="form-container" on:submit={updateCategory}>
+<form class="form-container" on:submit={onProductSubmit}>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-			>Tên nhãn hàng</label
+			>Tên sản phẩm</label
 		>
 		<input
-			bind:value={brand.name}
+			bind:value={product.name}
 			type="text"
-			id="firstName"
-			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			id="name"
+			class=" block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
 		/>
 	</div>
 	<div class="form-group">
 		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-			>Logo</label
+			>Mô tả</label
 		>
-		<div class="relative block w-full">
-			<ImageUploader onImageUploaded={(imageUrl) => (imagesPath = imageUrl)} {isClear} />
-			{#if imagesPath != ''}
-				<div class="image-container">
-					<div class="close" on:click={clearImage}>
-						<svg
-							class="h-5 w-5 text-gray-800 dark:text-white"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="none"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18 17.94 6M18 18 6.06 6"
-							/>
-						</svg>
+		<textarea
+			rows="4"
+			id="description"
+			bind:value={product.description}
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="technicalInfo" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Thông tin kỹ thuật</label
+		>
+		<div class="block w-5/6">
+			<TechnicalInfoInput
+				technicleInfo={product.technicalInfo ? JSON.parse(product.technicalInfo) : []}
+				onHandle={(result) => {
+					product.technicalInfo = result;
+				}}
+			/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Thông tin sản phẩm</label
+		>
+		<div class="block w-5/6">
+			<RichTextEditor onChange={(result) => (product.productInfo = result)} />
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Giá</label
+		>
+		<input
+			type="number"
+			id="price"
+			bind:value={product.price}
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Khuyến mãi</label
+		>
+		<input
+			type="number"
+			id="discount"
+			bind:value={product.discount}
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Số lượng</label
+		>
+		<input
+			type="number"
+			id="number"
+			bind:value={product.quantity}
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Trạng thái</label
+		>
+		<input
+			type="tsext"
+			id="status"
+			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Nhãn hàng</label
+		>
+		<div class="block w-5/6">
+			<BrandPicker
+				seletedBrandId={product.brandId}
+				handleSubmit={(result) => {
+					product.brandId = result?.id;
+				}}
+			/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Danh mục</label
+		>
+		<div class="block w-5/6">
+			<CategoryPicker
+				selectedCategoryId={product.categoryId}
+				handleSubmit={(result) => {
+					product.categoryId = result?.id;
+				}}
+			/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Hình ảnh</label
+		>
+		<div class="relative block w-5/6">
+			<MultiImageUploader
+				onImageUploaded={(imageUrls) => {
+					productImages = imageUrls; // Update the reactive variable
+					product.images = imageUrls;
+				}}
+				{isClear}
+			/>
+			<div class="mt-10 flex max-w-full flex-wrap">
+				{#each productImages as imagesPath}
+					<div class="image-container">
+						<div class="close" on:click={() => clearImage(imagesPath)}>
+							<svg
+								class="h-5 w-5 text-gray-800 dark:text-white"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								fill="none"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M6 18 17.94 6M18 18 6.06 6"
+								/>
+							</svg>
+						</div>
+						<div class="item">
+							<img src={imagesPath} alt="test" />
+						</div>
 					</div>
-					<div class="item">
-						<img src={imagesPath} alt="test" />
-					</div>
-				</div>
-			{/if}
+				{/each}
+			</div>
 		</div>
 	</div>
 	<button
@@ -91,16 +203,16 @@
 	}
 
 	.form-group label {
-		width: 140px; /* Adjust the width as needed */
+		width: 250px; /* Adjust the width as needed */
 		margin-right: 10px;
 	}
 	.form-container {
-		width: 40%;
+		width: 70%;
 	}
 	.image-container {
-		position: absolute;
-		left: 0;
-		margin-top: 20px;
+		position: relative;
+		width: 30%;
+		margin: 10px 20px;
 	}
 	.image-container .close {
 		position: absolute;
@@ -108,5 +220,8 @@
 		top: 0;
 		transform: translate(100%, -50%);
 		cursor: pointer;
+	}
+	.image-container img {
+		width: 100%;
 	}
 </style>

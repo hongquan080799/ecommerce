@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte';
+	import { Button, Modal } from 'flowbite-svelte';
 	import * as api from '../../api';
 	import moment from 'moment';
 	import type { Brand } from '../../types/Brand';
@@ -9,7 +9,15 @@
 	let brands: Brand[] = [];
 	let filterData: Brand[] = [];
 	let search = '';
-	let selectedCategory: Brand | undefined;
+	let seletedBrand: Brand | undefined;
+	export let seletedBrandId: number | undefined = undefined;
+	onMount(() => {
+		if (seletedBrandId) {
+			api.brandApi.loadBrandsWithId(seletedBrandId).then((res) => {
+				seletedBrand = res;
+			});
+		}
+	});
 
 	const onSearch = () => {
 		if (search.length > 0) {
@@ -25,10 +33,10 @@
 		filterData = result;
 	});
 	const onSelect = async (brand: Brand) => {
-		selectedCategory = brand;
+		seletedBrand = brand;
 	};
 	const onSubmit = () => {
-		handleSubmit(selectedCategory);
+		handleSubmit(seletedBrand);
 		formModal = false;
 	};
 </script>
@@ -81,7 +89,7 @@
 			<tbody>
 				{#each filterData as data}
 					<tr
-						class="{selectedCategory && selectedCategory.id === data.id
+						class="{seletedBrand && seletedBrand.id === data.id
 							? 'bg-blue-200'
 							: 'bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600'} cursor-pointer border-b"
 						on:click={() => onSelect(data)}
@@ -107,7 +115,7 @@
 		</table>
 	</div>
 	<svelte:fragment slot="footer">
-		{#if selectedCategory}
+		{#if seletedBrand}
 			<Button color="blue" on:click={onSubmit}>Save</Button>
 		{/if}
 	</svelte:fragment>
