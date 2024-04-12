@@ -1,3 +1,5 @@
+import type { Brand } from "./Brand";
+
 export type Product = {
     id: number;
     name: string;
@@ -24,3 +26,27 @@ export enum ProductStatus {
     Inactive = 'Inactive',
     
 }
+
+export type PopularProductWithCat =  {
+    id: number;
+    name: string;
+    imageUrl: string;
+    subCategories : SubCategory[]
+}
+
+
+export type SubCategory = {
+    id: number;
+    name: string;
+    imageUrl: string;
+    parentId: number;
+    products : ProductWithCat []
+}
+ export type ProductWithCat = {
+    id: number;
+    name: string;
+    images : string[];
+    price: number;
+    discount: number;
+    brand: Partial<Brand>
+ }

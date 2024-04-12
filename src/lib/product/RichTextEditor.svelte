@@ -3,6 +3,7 @@
 
 	import { onMount } from 'svelte';
 	import { BASE_URL } from '../../utils/EcommerceConst';
+	export let editorData: String = '';
 	let editorElement;
 	export let onChange: (result: any) => void;
 	/**
@@ -62,6 +63,7 @@
 			};
 			if (editorInstance) {
 				editorInstance.model.document.on('change', handleEditorChange);
+				editorInstance.setData(editorData);
 			}
 		} catch (error) {
 			console.error('Error initializing CKEditor:', error);

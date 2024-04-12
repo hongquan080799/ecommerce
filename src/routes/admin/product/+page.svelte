@@ -23,9 +23,9 @@
 		const confirmed = confirm('bạn có muốn xóa sản phẩm này không ?');
 		if (!confirmed) return;
 		try {
-			await api.brandApi.deleteBrand(id);
+			await api.productApi.deleteProduct(id);
 			alert('Xóa sản phẩm thành công');
-			loadedData = (await api.brandApi.loadBrands()) as unknown as Product[];
+			loadedData = (await api.productApi.loadProducts()) as unknown as Product[];
 			onSearch();
 		} catch (error) {
 			console.log(error);

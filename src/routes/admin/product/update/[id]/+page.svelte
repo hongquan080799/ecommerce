@@ -17,7 +17,6 @@
 		product.images = productImages;
 		isClear = true;
 	};
-	console.log(product);
 	let productImages: string[] = product.images ? product.images : [];
 	const onProductSubmit = async () => {
 		try {
@@ -74,7 +73,10 @@
 			>Thông tin sản phẩm</label
 		>
 		<div class="block w-5/6">
-			<RichTextEditor onChange={(result) => (product.productInfo = result)} />
+			<RichTextEditor
+				onChange={(result) => (product.productInfo = result)}
+				editorData={product.productInfo}
+			/>
 		</div>
 	</div>
 	<div class="form-group">
@@ -94,6 +96,9 @@
 		>
 		<input
 			type="number"
+			min="0"
+			max="1"
+			step="0.01"
 			id="discount"
 			bind:value={product.discount}
 			class="block w-5/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-blue-500 dark:focus:ring-blue-500"

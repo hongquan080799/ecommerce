@@ -1,4 +1,4 @@
-import type { Product } from "../types/Product";
+import type { PopularProductWithCat, Product } from "../types/Product";
 import { BASE_URL } from "../utils/EcommerceConst";
 const apiUrl = BASE_URL + '/product';
 export async function insertProduct(data: Partial<Product>): Promise<void> {
@@ -13,7 +13,6 @@ export async function insertProduct(data: Partial<Product>): Promise<void> {
             });
     
             if (response.ok) {
-                console.log(response)
                 resolve()
             } else {
                 reject(response.status)
@@ -71,6 +70,28 @@ export const loadProducts = async (): Promise<Product[]> => {
     return new Promise<Product[]>(async (resolve, reject) => {
         try {
             const response = await fetch(apiUrl, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export const loadProductsWithCat = async (): Promise<PopularProductWithCat[]> => {
+    return new Promise<PopularProductWithCat[]>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl + "/product-with-cat/all", {
                 headers: {
                     'Content-Type': 'application/json',
                 },

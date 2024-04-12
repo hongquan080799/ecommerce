@@ -88,6 +88,9 @@
 			>Khuyến mãi</label
 		>
 		<input
+			step="0.01"
+			min="0"
+			max="1"
 			type="number"
 			id="discount"
 			bind:value={product.discount}
