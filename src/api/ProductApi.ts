@@ -99,7 +99,7 @@ export const loadProductsWithCat = async (): Promise<PopularProductWithCat[]> =>
             });
     
             if (response.ok) {
-                const data = response.json();
+                const data = await response.json();
                 resolve(data)
             } else {
                 reject(response.status)

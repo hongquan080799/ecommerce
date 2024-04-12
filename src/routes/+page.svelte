@@ -1,4 +1,6 @@
 <script>
+	// @ts-nocheck
+
 	import Slogan from './../components/Slogan.svelte';
 	import Category from '../components/Category.svelte';
 	import FlashSale from '../components/FlashSale.svelte';
@@ -12,7 +14,7 @@
 	// class="text-gray-700"
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let { productWithCatList } = data.props;
+	let { productWithCatList, brands } = data.props;
 </script>
 
 <Header />
@@ -94,10 +96,10 @@
 			</div>
 		</div>
 	</div>
-	<Popular />
-	<FlashSale />
-	<ProductViewList />
-	<PopularBrand />
+	<Popular categories={productWithCatList} />
+	<!-- <FlashSale /> -->
+	<ProductViewList categories={productWithCatList} />
+	<PopularBrand {brands} />
 	<Slogan />
 	<Footer />
 </div>

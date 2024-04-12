@@ -1,13 +1,34 @@
 <script lang="ts">
-	import { Rating } from 'flowbite-svelte';
-	import ProductInfoSlider from '../../../components/ProductInfoSlider.svelte';
+	import { Carousel, Indicator, Rating, Button, Thumbnails } from 'flowbite-svelte';
+	import { CaretRightOutline } from 'flowbite-svelte-icons';
 	import Header from '../../../components/Header.svelte';
 	import Slogan from '../../../components/Slogan.svelte';
 	import Footer from '../../../components/Footer.svelte';
 	import ProductViewNonCategory from '../../../components/ProductViewNonCategory.svelte';
 	import type { Product } from '../../../types/Product';
 	import TechnicalInfo from '../../../components/product/TechnicalInfo.svelte';
+	import { formattedPrice } from '../../../utils/Format';
+	import ProductInfo from '../../../components/product/ProductInfo.svelte';
 	const productName = 'Sản phẩm tương tự';
+	export let data;
+	let product: Product = JSON.parse(JSON.stringify(data)) as Product;
+	let images = product.images
+		? product.images.map((image) => {
+				return {
+					alt: image,
+					src: image,
+					title: image
+				};
+			})
+		: [];
+	let index = 0;
+	function changeSlide(forward: any) {
+		if (forward) {
+			index = (index + 1) % images.length;
+		} else {
+			index = (index - 1 + images.length) % images.length;
+		}
+	}
 	const productList: Product[] = [
 		{
 			id: 1,
@@ -127,24 +148,65 @@
 <div class="container">
 	<div class="product-layout">
 		<div class="image-slider">
-			<ProductInfoSlider />
+			<div class="max-w-4xl space-y-4">
+				<Carousel {images} let:Indicators let:Controls bind:index>
+					<Indicators let:selected let:index>
+						<Indicator
+							color={selected ? 'red' : 'green'}
+							class="h-5 w-5 border border-white text-white {selected
+								? 'opacity-100'
+								: 'opacity-80'}"
+						>
+							{index}
+						</Indicator>
+					</Indicators>
+					<Controls let:changeSlide let:ControlButton>
+						<ControlButton name="Previous" forward={false} on:click={() => changeSlide(false)} />
+						<Button
+							pill
+							class="absolute end-4 top-1/2 -translate-y-1/2 p-2 font-bold"
+							on:click={() => changeSlide(true)}><CaretRightOutline /></Button
+						>
+					</Controls>
+				</Carousel>
+				<Thumbnails
+					class="gap-3 bg-transparent"
+					let:Thumbnail
+					let:image
+					let:selected
+					{images}
+					bind:index
+				>
+					<Thumbnail
+						{...image}
+						{selected}
+						class="rounded-md shadow-xl hover:outline hover:outline-blue-500"
+						activeClass="outline outline-blue-400"
+					/>
+				</Thumbnails>
+			</div>
 		</div>
 		<div>
 			<div class="header">
-				<p class="mb-6 text-lg font-bold">Tủ lạnh 4 cánh Electrolux EQE6909A-BVN (622 lít)</p>
+				<p class="mb-6 text-lg font-bold">{product.name}</p>
 				<Rating id="example-1" total={5} size={20} rating={4} />
-				<p class="text-sm">Thương hiệu : <span class="text-sm text-blue-700">Casper</span></p>
+				<p class="text-sm">
+					Thương hiệu : <span class="text-sm text-blue-700">{product.brandName}</span>
+				</p>
 			</div>
 			<div class="price">
 				<div class="price-block">
-					<p class="text-xl text-white">30.000.000 đ</p>
+					<p class="text-xl text-white">
+						{formattedPrice(product.price - product.price * product.discount)}
+					</p>
 					<p class="text-md text-white">
-						15% <span class="italic line-through">32.000.000 đ</span>
+						{`${product.discount * 100} %`}
+						<span class="italic line-through">{formattedPrice(product.price)}</span>
 					</p>
 				</div>
 				<div class="flash-sale">
 					<p class="text-md text-white">Kết thúc sau 27 phút</p>
-					<p class="text-md text-white">Còn <span class="italic">4</span> chiếc</p>
+					<p class="text-md text-white">Còn <span class="italic">{product.quantity}</span> chiếc</p>
 				</div>
 			</div>
 			<div class="status">
@@ -382,8 +444,9 @@
 		</div>
 	</div>
 
-	<ProductViewNonCategory titleProduct={productName} popularProducts={productList} />
-	<TechnicalInfo />
+	<!-- <ProductViewNonCategory titleProduct={productName} popularProducts={productList} /> -->
+	<TechnicalInfo infos={JSON.parse(product.technicalInfo)} />
+	<ProductInfo productInfo={product.productInfo} />
 	<Slogan />
 	<Footer />
 </div>
@@ -441,7 +504,7 @@
 	}
 	.product-layout {
 		display: grid;
-		grid-template-columns: 0.5fr 1fr 0.5fr;
+		grid-template-columns: 1fr 1fr 0.5fr;
 		column-gap: 3rem;
 		padding-bottom: 1rem;
 		background-color: #fff;

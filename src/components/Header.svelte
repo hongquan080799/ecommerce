@@ -12,7 +12,7 @@
 				>
 			</div>
 			<div class="logo">
-				<p class="text-3xl font-bold text-white">MITA</p>
+				<a href="/" class="text-3xl font-bold text-white">MITA</a>
 			</div>
 			<div class="cart-and-account">
 				<div class="item">
