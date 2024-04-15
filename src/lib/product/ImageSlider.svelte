@@ -17,7 +17,6 @@
 			title: image
 		};
 	});
-	console.log(images);
 	const scaleAnimation = (x) => scale(x, { duration: 500, easing: quintOut });
 </script>
 
