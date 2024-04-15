@@ -12,10 +12,13 @@ const config = {
 		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter({
-			// Customize options here
-			pages: 'public/static/pages', // Change to a different directory for pages
-			assets: 'public/static/assets', 
-			fallback: '200.html' // may differ from host to host
+			// default options are shown. On some platforms
+			// these options are set automatically — see below
+			pages: 'build',
+			assets: 'build',
+			fallback: 'index.html',
+			precompress: false,
+			strict: true
 		}),
 		alias: {
 			// Key: Alias name, Value: Path to the file
