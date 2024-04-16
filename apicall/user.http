@@ -1,0 +1,17 @@
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "123"
+}
+
+###
+
+DELETE http://localhost:8080/product/1
+Content-Type: application/json
+
+###
+GET http://localhost:8080/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTMyMDA4MDgsImRhdGEiOnsiaWQiOjEsInVzZXJuYW1lIjoiQURNSU4iLCJmaXJzdE5hbWUiOm51bGwsImxhc3ROYW1lIjpudWxsLCJlbWFpbCI6bnVsbCwiYWRkcmVzcyI6bnVsbCwicGhvbmVOdW1iZXIiOm51bGwsInJvbGUiOnsiaWQiOjF9LCJjcmVhdGVkQXQiOiIyMDI0LTA0LTE1VDE2OjAwOjUxLjAwMFoifSwiaWF0IjoxNzEzMTk3MjA4fQ.cLdOL37zv-Glhues3jOXBn7sxO39EJjz5Pk-8lWhFsU
+Content-Type: application/json

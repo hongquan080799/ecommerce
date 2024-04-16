@@ -2,6 +2,7 @@
 import * as categoryApi from "./CategoryApi"
 import * as brandApi from "./BrandApi"
 import * as productApi from './ProductApi'
+import * as userApi from './UserApi'
 
 
-export { categoryApi, brandApi, productApi }; // s
+export { categoryApi, brandApi, productApi, userApi}; // s

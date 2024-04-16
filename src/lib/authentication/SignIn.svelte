@@ -1,19 +1,19 @@
 <script lang="ts">
 	import { Label, Input, Checkbox, A, Button, Card } from 'flowbite-svelte';
-	export let title = 'Sign in to platform';
+	export let title = 'Đăng nhập';
 	export let site = {
-		name: 'Flowbite',
+		name: 'YOUNEED',
 		img: '/images/flowbite-svelte-icon-logo.svg',
 		link: '/',
-		imgAlt: 'FlowBite Logo'
+		imgAlt: 'YOUNEED LOGO'
 	};
 	export let rememberMe = true;
 	export let lostPassword = true;
 	export let createAccount = true;
 	export let lostPasswordLink = '';
-	export let loginTitle = 'Login to your account';
+	export let loginTitle = 'Đăng nhập vào tài khoản';
 	export let registerLink = '';
-	export let createAccountTitle = 'Create account';
+	export let createAccountTitle = 'Tạo tài khoản';
 
 	export let mainClass = 'bg-gray-50 dark:bg-gray-900 w-full';
 	export let mainDivClass =
@@ -40,17 +40,17 @@
 				{#if rememberMe || lostPassword}
 					<div class="flex items-start">
 						{#if rememberMe}
-							<Checkbox class="accent-primary-600" name="remember">Remember me</Checkbox>
+							<Checkbox class="accent-primary-600" name="remember">Nhớ lần đăng nhập sau</Checkbox>
 						{/if}
 						{#if lostPassword}
-							<A href={lostPasswordLink} aClass="ml-auto text-sm">Lost Password?</A>
+							<A href={lostPasswordLink} aClass="ml-auto text-sm">Quên mật khẩu?</A>
 						{/if}
 					</div>
 				{/if}
 				<Button type="submit" size="lg">{loginTitle}</Button>
 				{#if createAccount}
 					<div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-						Not registered? <A href={registerLink}>{createAccountTitle}</A>
+						Chưa có tài khoản? <A href={registerLink}>{createAccountTitle}</A>
 					</div>
 				{/if}
 			</form>

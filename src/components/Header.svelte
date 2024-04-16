@@ -1,3 +1,8 @@
+<script>
+	import { goto } from '$app/navigation';
+	import { Button } from 'flowbite-svelte';
+</script>
+
 <nav class="navbar">
 	<div class="box-header">
 		<div class="box-top-menu">
@@ -15,58 +20,64 @@
 				<a href="/" class="text-3xl font-bold text-white">MITA</a>
 			</div>
 			<div class="cart-and-account">
-				<div class="item">
-					<svg
-						class="h-6 w-6 text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							fill-rule="evenodd"
-							d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
-					<p>Đăng nhập</p>
-				</div>
-				<div class="item">
-					<svg
-						class="h-6 w-6 text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"
-						/>
-					</svg>
-					<p>Hotline</p>
-				</div>
-				<div class="item">
-					<svg
-						class="h-6 w-6 text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							fill-rule="evenodd"
-							d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
-					<p>Giỏ hàng</p>
-				</div>
+				<Button on:click={() => goto('/authentication/sign-in')}>
+					<div class="item">
+						<svg
+							class="h-6 w-6 text-white"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+						<p>Đăng nhập</p>
+					</div>
+				</Button>
+				<Button>
+					<div class="item">
+						<svg
+							class="h-6 w-6 text-white"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"
+							/>
+						</svg>
+						<p>Hotline</p>
+					</div>
+				</Button>
+				<Button>
+					<div class="item">
+						<svg
+							class="h-6 w-6 text-white"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
+								clip-rule="evenodd"
+							/>
+						</svg>
+						<p>Giỏ hàng</p>
+					</div>
+				</Button>
 			</div>
 		</div>
 		<div class="box-search-container">
@@ -157,7 +168,7 @@
 	.cart-and-account {
 		display: flex;
 		justify-content: space-between;
-		width: 33%;
+		width: 40%;
 	}
 	.item {
 		display: flex;
