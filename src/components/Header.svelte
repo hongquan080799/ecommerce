@@ -20,7 +20,7 @@
 				<a href="/" class="text-3xl font-bold text-white">MITA</a>
 			</div>
 			<div class="cart-and-account">
-				<Button on:click={() => goto('/authentication/sign-in')}>
+				<Button color="none" on:click={() => goto('/authentication/login')}>
 					<div class="item">
 						<svg
 							class="h-6 w-6 text-white"

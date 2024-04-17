@@ -35,7 +35,8 @@
 			<h1 class={cardH1Class}>
 				{title}
 			</h1>
-			<form class="mt-8 space-y-6" on:submit|preventDefault>
+			<form class="mt-8 space-y-6" method="POST">
+				<!-- on:submit={onSubmit} -->
 				<slot />
 				{#if rememberMe || lostPassword}
 					<div class="flex items-start">

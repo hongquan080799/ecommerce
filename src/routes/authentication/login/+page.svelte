@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Label, Input } from 'flowbite-svelte';
 	import { SignIn } from '$lib';
-	import MetaTag from '../utils/MetaTag.svelte';
+	import MetaTag from '../../utils/MetaTag.svelte';
 	import * as api from '$api';
 	import { goto } from '$app/navigation';
 	let title = 'Đăng nhập';
@@ -19,24 +19,24 @@
 	let registerLink = 'sign-up';
 	let createAccountTitle = 'Tạo tài khoản';
 
-	const onSubmit = async (e: Event) => {
-		const formData = new FormData(e.target as HTMLFormElement);
+	// const onSubmit = async (e: Event) => {
+	// 	const formData = new FormData(e.target as HTMLFormElement);
 
-		const data: Record<string, string | File> = {};
-		for (const field of formData.entries()) {
-			const [key, value] = field;
-			data[key] = value;
-		}
-		try {
-			const result = await api.userApi.login(data);
-			sessionStorage.setItem('userInfo', JSON.stringify(result.userInfo));
-			sessionStorage.setItem('jwt', result.jwtToken);
-			goto('/admin');
-		} catch (error) {
-			console.log(error);
-			window.alert('Đăng nhập thất bại');
-		}
-	};
+	// 	const data: Record<string, string | File> = {};
+	// 	for (const field of formData.entries()) {
+	// 		const [key, value] = field;
+	// 		data[key] = value;
+	// 	}
+	// 	try {
+	// 		const result = await api.userApi.login(data);
+	// 		sessionStorage.setItem('userInfo', JSON.stringify(result.userInfo));
+	// 		sessionStorage.setItem('jwt', result.jwtToken);
+	// 		goto('/admin');
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		window.alert('Đăng nhập thất bại');
+	// 	}
+	// };
 
 	const path: string = '/authentication/sign-in';
 	const description: string = 'Sign in example - Flowbite Svelte Admin Dashboard';
@@ -56,8 +56,8 @@
 	{loginTitle}
 	{registerLink}
 	{createAccountTitle}
-	on:submit={onSubmit}
 >
+	<!-- on:submit={onSubmit} -->
 	<div>
 		<Label for="email" class="mb-2 dark:text-white">Tên đăng nhập</Label>
 		<Input
