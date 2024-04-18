@@ -1,6 +1,9 @@
-<script>
+<script lang="ts">
+	import { Dropdown, DropdownItem, Button } from 'flowbite-svelte';
 	import { load } from '../../hooks/auth';
 	export { load };
+	export let data;
+	const defaultAvatarUrl = '/images/defaultAvata.png';
 </script>
 
 <nav
@@ -40,62 +43,24 @@
 			</div>
 			<div class="flex items-center">
 				<div class="ms-3 flex items-center">
-					<div>
-						<button
-							type="button"
-							class="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-							aria-expanded="false"
-							data-dropdown-toggle="dropdown-user"
-						>
-							<span class="sr-only">Open user menu</span>
-							<img
-								class="h-8 w-8 rounded-full"
-								src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-								alt="user photo"
-							/>
-						</button>
-					</div>
-					<div
-						class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700"
-						id="dropdown-user"
+					<Button color="none" outline={false}
+						><span class="sr-only">Open user menu</span>
+						<img
+							class="h-8 w-8 rounded-full"
+							src={data.user.avatar ? data.user.avatar : defaultAvatarUrl}
+							alt="user photo"
+						/></Button
 					>
-						<div class="px-4 py-3" role="none">
-							<p class="text-sm text-gray-900 dark:text-white" role="none">Neil Sims</p>
-							<p class="truncate text-sm font-medium text-gray-900 dark:text-gray-300" role="none">
-								neil.sims@flowbite.com
-							</p>
+					<Dropdown>
+						<div slot="header" class="px-4 py-2">
+							<span class="block text-sm text-gray-900 dark:text-white">{data.user.username}</span>
+							{#if data.user.email}
+								<span class="block truncate text-sm font-medium">{data.user.email}</span>
+							{/if}
 						</div>
-						<ul class="py-1" role="none">
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Settings</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Earnings</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Sign out</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-									role="menuitem">Dashboard</a
-								>
-							</li>
-						</ul>
-					</div>
+						<DropdownItem>Settings</DropdownItem>
+						<DropdownItem slot="footer">Sign out</DropdownItem>
+					</Dropdown>
 				</div>
 			</div>
 		</div>

@@ -1,10 +1,13 @@
+import type { RequestEvent } from "../routes/admin/$types";
 import type { Brand } from "../types/Brand";
+import type { Role, User } from "../types/User";
 import { BASE_URL } from "../utils/EcommerceConst";
-const apiUrl = BASE_URL + '/user/login';
+const apiUrl = BASE_URL + '/user';
+import {type Cookies } from '@sveltejs/kit';
 export async function login(data: any): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(apiUrl +"/login", {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -24,6 +27,142 @@ export async function login(data: any): Promise<any> {
     })
 }
 
+
+export async function findByUserName(jwt: string, username: string): Promise<User> {
+    return new Promise<User>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl +"/info/" + username, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+export async function getListRole (): Promise<Role[]> {
+    return new Promise<Role[]>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl + "/role", {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+export async function getAllUser(jwt: string): Promise<User[]> {
+    return new Promise<User[]>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export async function insertUser(jwt: string, user: Partial<User>): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt
+                },
+                method: 'POST',
+                body: JSON.stringify(user)
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export async function updateUser(jwt: string, user: Partial<User>): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt
+                },
+                method: 'PUT',
+                body: JSON.stringify(user)
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+export async function deleteUser(jwt: string, username: string): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl + "/" + username, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + jwt
+                },
+                method: 'DELETE',
+            });
+    
+            if (response.ok) {
+                const data = await response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 // export async function updateBrand(data: Partial<Brand>): Promise<User> {
 //     return new Promise<User>(async (resolve, reject) => {
 //         try {

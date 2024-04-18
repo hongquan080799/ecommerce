@@ -1,6 +1,7 @@
 export type User = {
     id: number;
     username: string;
+    password: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -18,4 +19,10 @@ export type Role = {
     name: string;
     createdAt?: Date;
     updatedAt?: Date;
+}
+
+export enum RoleType {
+    ADMIN = 'ADMIN',
+    USER = 'USER',
+    EMPLOYEE = 'EMPLOYEE',
 }

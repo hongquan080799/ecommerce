@@ -3,6 +3,9 @@ import {authenticateUser} from '$lib/authentication/auth'
 export const handle: Handle = async ({ event, resolve }) => {
     //authen user
     const user = await authenticateUser(event)
+    if(user) {
+        event.locals.user = user
+    }
     if (event.url.pathname.startsWith('/admin')) {	
         if(!user) {
             throw redirect(303, '/')
