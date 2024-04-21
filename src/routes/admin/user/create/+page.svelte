@@ -6,7 +6,6 @@
 	import { Select } from 'flowbite-svelte';
 	export let data;
 	const { roles, jwt } = data.props;
-	console.log(data);
 	let imagesPath = '';
 	let isClear = false;
 	let user: Partial<User> = {};

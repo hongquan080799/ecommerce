@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Popover } from 'flowbite-svelte';
+	import { Dropdown, DropdownItem, Popover } from 'flowbite-svelte';
 	import type { PopularProductWithCat, SubCategory } from '../types/Product';
 
 	export let categories: PopularProductWithCat[] = [];
@@ -23,14 +23,16 @@
 				<img src={cat.imageUrl} alt={cat.name} class="h-full" />
 				<p>{cat.name}</p>
 			</li>
-			<Popover triggeredBy={`[id='${cat.id}']`} placement={'right'} class="z-10 w-64 text-sm ">
+			<Dropdown placement="right-start">
 				{#each cat.subCategories as sub}
-					<li class="flex h-9 items-center">
-						<img src={sub.imageUrl} alt={sub.name} class="h-full" />
-						<p>{sub.name}</p>
-					</li>
+					<a href={`categories/${sub.id}`}>
+						<li class="flex h-9 w-fit min-w-48 items-center px-6">
+							<img src={sub.imageUrl} alt={sub.name} class="h-full" />
+							<p>{sub.name}</p>
+						</li>
+					</a>
 				{/each}
-			</Popover>
+			</Dropdown>
 		{/each}
 	</ul>
 </div>
@@ -64,6 +66,5 @@
 		background-color: #fd6332;
 		cursor: pointer;
 		color: white;
-		transition: all 0.3s;
 	}
 </style>

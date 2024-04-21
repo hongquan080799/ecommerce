@@ -40,7 +40,7 @@
 						<p>Đăng nhập</p>
 					</div>
 				</Button>
-				<Button>
+				<Button color="none">
 					<div class="item">
 						<svg
 							class="h-6 w-6 text-white"
@@ -58,7 +58,7 @@
 						<p>Hotline</p>
 					</div>
 				</Button>
-				<Button>
+				<Button color="none">
 					<div class="item">
 						<svg
 							class="h-6 w-6 text-white"
@@ -142,7 +142,7 @@
 		color: #333333;
 	}
 	.navbar {
-		background-color: #fd6332;
+		background-color: #298200;
 		color: #fff;
 		padding: 10px 20px;
 		display: flex;
@@ -187,7 +187,7 @@
 		.box-search-container {
 			left: 0;
 			transform: translateY(100%);
-			background-color: #fd6332;
+			background-color: #298200;
 			height: 45px;
 			padding: 0 5px;
 			width: 100%;
