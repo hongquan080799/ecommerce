@@ -1,4 +1,4 @@
-import type { Category } from "../types/Category";
+import type { CatTree, Category } from "../types/Category";
 import { BASE_URL } from "../utils/EcommerceConst";
 const apiUrl = BASE_URL + '/category';
 export async function insertCategory(data: Partial<Category>): Promise<void> {
@@ -112,6 +112,28 @@ export const loadCategoriesWithParentId = async (parentId: number): Promise<Cate
     return new Promise<Category[]>(async (resolve, reject) => {
         try {
             const response = await fetch(apiUrl+ "?parentId=" + parentId , {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export const loadCategoryTreeWithChildId = async (childId: number): Promise<CatTree> => {
+    return new Promise<CatTree>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl+ "/cat-tree/" + childId , {
                 headers: {
                     'Content-Type': 'application/json',
                 },

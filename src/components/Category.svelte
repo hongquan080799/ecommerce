@@ -25,7 +25,7 @@
 			</li>
 			<Dropdown placement="right-start">
 				{#each cat.subCategories as sub}
-					<a href={`categories/${sub.id}`}>
+					<a href={`category/${sub.id}`}>
 						<li class="flex h-9 w-fit min-w-48 items-center px-6">
 							<img src={sub.imageUrl} alt={sub.name} class="h-full" />
 							<p>{sub.name}</p>

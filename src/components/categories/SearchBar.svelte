@@ -35,6 +35,7 @@
 		color: #000000;
 		width: 100%;
 		justify-content: space-between;
+		border: solid 1px #dbdbdb;
 	}
 	.box-search button {
 		background-color: #298200;

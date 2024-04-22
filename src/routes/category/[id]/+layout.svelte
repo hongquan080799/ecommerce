@@ -7,7 +7,7 @@
 
 <Header />
 
-<nav class="flex" aria-label="Breadcrumb">
+<!-- <nav class="flex" aria-label="Breadcrumb">
 	<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
 		<li class="inline-flex items-center">
 			<a
@@ -75,7 +75,7 @@
 			</div>
 		</li>
 	</ol>
-</nav>
+</nav> -->
 
 <div class="body-container">
 	<slot />
@@ -85,13 +85,17 @@
 </div>
 
 <style>
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		background-color: rgb(235, 235, 235);
+	}
 	.body-container {
 		background-color: #fff;
 		max-width: 1236px;
 		margin-inline: auto;
 		display: flex;
 		flex-direction: column;
-		padding: 0 5px;
-		background-color: rgb(235, 235, 235);
+		padding: 1rem 5px;
 	}
 </style>

@@ -1,10 +1,13 @@
+<script lang="ts">
+	import type { Brand } from '../../types/Brand';
+
+	export let data: Brand[] = [];
+</script>
+
 <div class="container">
-	{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 23, 43] as ite}
+	{#each data as item}
 		<div class="brand">
-			<img
-				src="https://st.meta.vn/img/thumb.ashx/120x0x95/Data/image/2021/03/26/logo-casper-to.png"
-				alt="brand"
-			/>
+			<img src={item.imageUrl} alt={item.name} />
 		</div>
 	{/each}
 </div>
@@ -27,6 +30,6 @@
 		transition: 0.5s all;
 	}
 	.brand img {
-		width: 100%;
+		height: 100%;
 	}
 </style>
