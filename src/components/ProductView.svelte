@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { Button, Input } from 'flowbite-svelte';
 	import type { Category } from '../types/Category';
 	import type { ProductWithCat } from '../types/Product';
 	import { formattedPrice } from '../utils/Format';
+	import { CartOutline } from 'flowbite-svelte-icons';
 	export let titleCatogory: string;
 	export let titleProduct: string;
 	export let categoryList: Category[];
@@ -22,7 +24,7 @@
 	<p class="mt-4 text-sm font-bold">{titleProduct}</p>
 	<ul class="product-container">
 		{#each popularProducts as product}
-			<li class="product-item" on:click={() => goto('/products/' + Number(product.id))}>
+			<li class="product-item">
 				<div class="flex justify-center">
 					<img src={product.images[0]} alt={product.name} />
 				</div>
@@ -32,6 +34,12 @@
 				<p class="text-xs font-light italic text-gray-500 line-through">
 					{formattedPrice(product.price - product.price * product.discount)}
 				</p>
+				<div class="mt-6 flex">
+					<Button size="sm" class="mr-1" color="green"><CartOutline /> Thêm vào giỏ</Button>
+					<Button color="primary" on:click={() => goto('/products/' + Number(product.id))}
+						>Xem</Button
+					>
+				</div>
 			</li>
 		{/each}
 	</ul>
@@ -53,6 +61,15 @@
 		gap: 0.5rem;
 		-webkit-overflow-scrolling: touch;
 		scrollbar-width: thin;
+		@media screen and (max-width: 1288px) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+		@media screen and (max-width: 900px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		@media screen and (max-width: 780px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 	.category-item {
 		max-width: 20%;
@@ -65,7 +82,7 @@
 		cursor: pointer;
 	}
 	.product-item {
-		max-width: 14rem;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		box-shadow: -1px -1px 14px 0px rgba(0, 0, 0, 0.3);
@@ -74,10 +91,10 @@
 		padding: 1.4rem 0.5rem;
 		cursor: pointer;
 	}
-	.product-item:hover {
+	/* .product-item:hover {
 		transform: scale(1.02);
 		transition: transform 0.5s ease;
-	}
+	} */
 	.category-item img {
 		width: 40%;
 	}

@@ -9,7 +9,7 @@ export const authenticateUser = async (event: RequestEvent) => {
     const response = await fetch(requestUrl, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization' : `Bearere ${jwt}`
+            'Authorization' : `Bearer ${jwt}`
         },
         method: 'GET',
     });

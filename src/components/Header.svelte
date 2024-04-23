@@ -20,7 +20,7 @@
 				<a href="/" class="text-3xl font-bold text-white">MITA</a>
 			</div>
 			<div class="cart-and-account">
-				<Button color="none" on:click={() => goto('/authentication/login')}>
+				<button color="none" on:click={() => goto('/authentication/login')}>
 					<div class="item">
 						<svg
 							class="h-6 w-6 text-white"
@@ -39,8 +39,8 @@
 						</svg>
 						<p>Đăng nhập</p>
 					</div>
-				</Button>
-				<Button color="none">
+				</button>
+				<button>
 					<div class="item">
 						<svg
 							class="h-6 w-6 text-white"
@@ -57,8 +57,8 @@
 						</svg>
 						<p>Hotline</p>
 					</div>
-				</Button>
-				<Button color="none">
+				</button>
+				<button>
 					<div class="item">
 						<svg
 							class="h-6 w-6 text-white"
@@ -77,7 +77,7 @@
 						</svg>
 						<p>Giỏ hàng</p>
 					</div>
-				</Button>
+				</button>
 			</div>
 		</div>
 		<div class="box-search-container">
@@ -182,7 +182,7 @@
 			display: none;
 		}
 		.cart-and-account {
-			width: 20%;
+			width: 8rem;
 		}
 		.box-search-container {
 			left: 0;
@@ -198,4 +198,5 @@
 			margin-bottom: 45px;
 		}
 	}
+	/* @media screen and (max-width: 900px) {} */
 </style>

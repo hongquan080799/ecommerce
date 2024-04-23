@@ -6,33 +6,22 @@
 </script>
 
 <div class="category-container">
-	<div class="header">
-		<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.5em" viewBox="0 0 15 15"
-			><path
-				fill="currentColor"
-				fill-rule="evenodd"
-				d="M1.5 3a.5.5 0 0 0 0 1h12a.5.5 0 0 0 0-1zM1 7.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 0 1h-12a.5.5 0 0 1-.5-.5m0 4a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 0 1h-12a.5.5 0 0 1-.5-.5"
-				clip-rule="evenodd"
-			/></svg
-		>
-		<p class="ml-2 text-gray-700">Danh mục sản phẩm</p>
-	</div>
 	<ul class="list">
 		{#each categories as cat}
 			<li class="flex h-9 items-center" id={`${cat.id}`}>
 				<img src={cat.imageUrl} alt={cat.name} class="h-full" />
 				<p>{cat.name}</p>
+				<ul class="sub-cat">
+					{#each cat.subCategories as sub}
+						<a href={`category/${sub.id}`}>
+							<li class="flex h-9 w-fit min-w-48 items-center px-6">
+								<img src={sub.imageUrl} alt={sub.name} class="h-full" />
+								<p>{sub.name}</p>
+							</li>
+						</a>
+					{/each}
+				</ul>
 			</li>
-			<Dropdown placement="right-start">
-				{#each cat.subCategories as sub}
-					<a href={`category/${sub.id}`}>
-						<li class="flex h-9 w-fit min-w-48 items-center px-6">
-							<img src={sub.imageUrl} alt={sub.name} class="h-full" />
-							<p>{sub.name}</p>
-						</li>
-					</a>
-				{/each}
-			</Dropdown>
 		{/each}
 	</ul>
 </div>
@@ -40,9 +29,7 @@
 <style>
 	.category-container {
 		font-size: 0.9rem;
-	}
-	.category-container svg {
-		color: #da251c;
+		background-color: #fff;
 	}
 	.header {
 		display: flex;
@@ -52,19 +39,37 @@
 		color: #707070;
 		font-size: 0.8rem;
 		/* overflow-y: scroll; */
-		-webkit-overflow-scrolling: touch;
-		max-height: 100%;
+		/* -webkit-overflow-scrolling: touch;
+		max-height: 100%; */
+		display: flex;
+		/* overflow-x: auto; */
 	}
 	.list li {
 		padding: 0.2rem 0 0.2rem 0.4rem;
 		border-bottom: 1px solid #f1f1f1;
+		min-width: 10rem;
+		border-right: 1px solid #e7e7e7;
+		position: relative;
 	}
 	.list li p {
 		padding-left: 0.6rem;
 	}
 	.list li:hover {
-		background-color: #fd6332;
+		background-color: #298200;
 		cursor: pointer;
 		color: white;
+	}
+	.sub-cat {
+		display: none;
+		position: absolute;
+		z-index: 100;
+		left: 0;
+		top: 0;
+		transform: translate(1rem, 2.1rem);
+		background-color: white;
+		color: #707070;
+	}
+	.list li:hover .sub-cat {
+		display: block;
 	}
 </style>
