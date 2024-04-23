@@ -10,3 +10,4 @@ export async function load({params}) {
       categoryId: Number(params.id),
     };
   }
+  export const prerender = 'auto'

@@ -1,6 +1,5 @@
 import { BASE_URL } from '../../../utils/EcommerceConst';
 
-/** @type {import('../$types').PageLoad} */
 export async function load({params}) {
   const apiUrl = BASE_URL + "/product/" +  params.id
     const response = await fetch(apiUrl);
@@ -9,3 +8,4 @@ export async function load({params}) {
     // Return data directly as a page property
     return data;
   }
+export const prerender = 'auto'
