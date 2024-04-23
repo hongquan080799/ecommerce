@@ -1,10 +1,5 @@
 <script lang="ts">
-	import { Carousel, Indicator, Rating, Button, Thumbnails } from 'flowbite-svelte';
-	import { CaretRightOutline } from 'flowbite-svelte-icons';
-	import Header from '../../../components/Header.svelte';
-	import Slogan from '../../../components/Slogan.svelte';
-	import Footer from '../../../components/Footer.svelte';
-	import ProductViewNonCategory from '../../../components/ProductViewNonCategory.svelte';
+	import { Carousel, Indicator, Rating, Button, Thumbnails, Badge } from 'flowbite-svelte';
 	import type { Product } from '../../../types/Product';
 	import TechnicalInfo from '../../../components/product/TechnicalInfo.svelte';
 	import { formattedPrice } from '../../../utils/Format';
@@ -22,155 +17,29 @@
 			})
 		: [];
 	let index = 0;
-	function changeSlide(forward: any) {
-		if (forward) {
-			index = (index + 1) % images.length;
-		} else {
-			index = (index - 1 + images.length) % images.length;
-		}
-	}
-	const productList: Product[] = [
-		{
-			id: 1,
-			name: 'Điều hòa Casper Inverter 1 chiều 1HP TC-09IS36',
-			brand: 'Casper',
-			price: 6900000,
-			discount: 0.28,
-			imageUrl:
-				'https://st.meta.vn/img/thumb.ashx/300x300x95/Data/image/2024/01/25/dieu-hoa-casper-tc-09is36-nho.jpg',
-			star: 4
-		},
-		{
-			id: 2,
-			name: 'Tủ lạnh Aqua Inverter 189 lít AQR-T220FA(FB)',
-			brand: 'Casper',
-			price: 6900000,
-			discount: 0.2,
-			imageUrl:
-				'https://st.meta.vn/img/thumb.ashx/300x300x95/Data/image/2024/01/25/dieu-hoa-casper-tc-09is36-nho.jpg',
-			star: 5
-		},
-		{
-			id: 3,
-			name: 'Máy giặt lồng đứng Casper 7.5kg WT-75NG1',
-			brand: 'Casper',
-			price: 6900000,
-			discount: 0.3,
-			imageUrl:
-				'https://st.meta.vn/img/thumb.ashx/300x300x95/Data/image/2024/01/25/dieu-hoa-casper-tc-09is36-nho.jpg',
-			star: 4
-		},
-		{
-			id: 4,
-			name: 'Máy sấy thông hơi Electrolux 8.5kg EDV854J3WB',
-			brand: 'Casper',
-			price: 6900000,
-			discount: 0.5,
-			imageUrl:
-				'https://st.meta.vn/img/thumb.ashx/300x300x95/Data/image/2024/01/25/dieu-hoa-casper-tc-09is36-nho.jpg',
-			star: 4
-		},
-		{
-			id: 5,
-			name: 'Máy sấy thông hơi Electrolux 8.5kg EDV854J3WB',
-			brand: 'Casper',
-			price: 6900000,
-			discount: 0.5,
-			imageUrl:
-				'https://st.meta.vn/img/thumb.ashx/300x300x95/Data/image/2024/01/25/dieu-hoa-casper-tc-09is36-nho.jpg',
-			star: 4
-		}
-	];
+	let forward = true;
+	let orderNumber = 1;
 </script>
 
-<div>
-	<Header />
-	<ol class="breadcum">
-		<li>
-			<svg
-				class="h-4 w-4 text-gray-500"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				fill="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
-					clip-rule="evenodd"
-				/>
-			</svg>
-		</li>
-		<li>
-			<svg
-				class="h-4 w-4 text-gray-500"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				fill="none"
-				viewBox="0 0 24 24"
-			>
-				<path
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="m9 5 7 7-7 7"
-				/>
-			</svg>
-		</li>
-		<li><p class="text-sm">Tủ lạnh</p></li>
-		<li>
-			<svg
-				class="h-4 w-4 text-gray-500"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				fill="none"
-				viewBox="0 0 24 24"
-			>
-				<path
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="m9 5 7 7-7 7"
-				/>
-			</svg>
-		</li>
-		<li><p class="text-sm">Tủ lạnh 4 cánh</p></li>
-	</ol>
-</div>
 <div class="container">
 	<div class="product-layout">
+		<div class="header">
+			<p class="mb-6 text-2xl font-bold">{product.name}</p>
+			<Rating id="example-1" total={5} size={20} rating={4} />
+			<p class="text-sm">
+				Thương hiệu : <span class="text-sm text-blue-700">{product.brandName}</span>
+			</p>
+		</div>
 		<div class="image-slider">
 			<div class="max-w-4xl space-y-4">
-				<Carousel {images} let:Indicators let:Controls bind:index>
-					<Indicators let:selected let:index>
-						<Indicator
-							color={selected ? 'red' : 'green'}
-							class="h-5 w-5 border border-white text-white {selected
-								? 'opacity-100'
-								: 'opacity-80'}"
-						>
-							{index}
-						</Indicator>
-					</Indicators>
-					<Controls let:changeSlide let:ControlButton>
-						<ControlButton name="Previous" forward={false} on:click={() => changeSlide(false)} />
-						<Button
-							pill
-							class="absolute end-4 top-1/2 -translate-y-1/2 p-2 font-bold"
-							on:click={() => changeSlide(true)}><CaretRightOutline /></Button
-						>
-					</Controls>
+				<Carousel {images} {forward} let:Indicators let:Controls bind:index>
+					<Controls />
+					<Indicators />
 				</Carousel>
+			</div>
+			<div class="thumbnails-container">
 				<Thumbnails
-					class="gap-3 bg-transparent"
+					class="flex-wrap justify-start gap-3 bg-transparent"
 					let:Thumbnail
 					let:image
 					let:selected
@@ -180,13 +49,111 @@
 					<Thumbnail
 						{...image}
 						{selected}
-						class="rounded-md shadow-xl hover:outline hover:outline-blue-500"
-						activeClass="outline outline-blue-400"
+						class="w-32 outline outline-green-300"
+						activeClass="outline outline-green-400"
 					/>
 				</Thumbnails>
 			</div>
 		</div>
-		<div>
+		<div class="mt-5 flex items-center">
+			<p class="mr-5 text-2xl font-medium text-red-600">
+				{formattedPrice(product.price - product.price * product.discount)}
+			</p>
+			<p class="text-md">
+				<span class="italic line-through">{formattedPrice(product.price)}</span>
+			</p>
+		</div>
+		<div class="status">
+			<div class="my-2 flex items-center">
+				<p class="text-md mr-5">Trạng thái:</p>
+				<Badge color="green">Còn hàng</Badge>
+			</div>
+			<div class="my-2 flex items-center">
+				<p class="text-md mr-5">Kho:</p>
+				<p class="text-md">{product.quantity}</p>
+			</div>
+			<div class="my-2 flex items-center">
+				<p class="text-md mr-5">Chọn số lượng:</p>
+				<div class="flex h-8 items-center text-sm">
+					<button
+						class=" m-0 h-full w-8 border border-gray-400 font-bold text-gray-400 shadow outline-none hover:shadow-lg"
+						on:click={() => {
+							if (orderNumber > 1) orderNumber -= 1;
+						}}
+					>
+						-
+					</button>
+					<input
+						type="number"
+						class="m-0 h-full w-16 border-gray-400"
+						bind:value={orderNumber}
+						min={1}
+						max={product.quantity}
+					/>
+					<button
+						class="m-0 h-full w-8 border border-gray-400 font-bold text-gray-400 shadow outline-none hover:shadow-lg"
+						on:click={() => {
+							if (orderNumber < product.quantity) orderNumber += 1;
+						}}
+					>
+						+
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="functional-btn my-5 mt-10 flex text-white">
+			<button class="mr-2 flex w-1/2 items-center justify-between rounded-lg bg-red-600 py-2">
+				<span>
+					<svg
+						class="h-8 w-8 text-white"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M5 3a1 1 0 0 0 0 2h.687L7.82 15.24A3 3 0 1 0 11.83 17h2.34A3 3 0 1 0 17 15H9.813l-.208-1h8.145a1 1 0 0 0 .979-.796l1.25-6A1 1 0 0 0 19 6h-2.268A2 2 0 0 1 15 9a2 2 0 1 1-4 0 2 2 0 0 1-1.732-3h-1.33L7.48 3.796A1 1 0 0 0 6.5 3H5Z"
+							clip-rule="evenodd"
+						/>
+						<path
+							fill-rule="evenodd"
+							d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</span>
+				<div class=" flex flex-1 flex-col items-center">
+					<p class="text-lg font-bold">Đặt mua</p>
+					<p class="order-text text-sm">Giao hàng trên toàn quốc</p>
+				</div>
+			</button>
+			<button class="flex w-1/2 items-center justify-between rounded-lg bg-green-700 py-2">
+				<svg
+					class="h-8 w-8 text-white"
+					aria-hidden="true"
+					xmlns="http://www.w3.org/2000/svg"
+					width="24"
+					height="24"
+					fill="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+				<div class=" flex flex-1 flex-col items-center">
+					<p class="text-lg font-bold">Tư vấn</p>
+					<p class="order-text text-sm">Chúng tôi sẽ tư vấn cho bạn</p>
+				</div>
+			</button>
+		</div>
+
+		<!-- <div>
 			<div class="header">
 				<p class="mb-6 text-lg font-bold">{product.name}</p>
 				<Rating id="example-1" total={5} size={20} rating={4} />
@@ -393,8 +360,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="Service-freeship">
+		</div> -->
+		<!-- <div class="Service-freeship">
 			<div class="tip-wrap-pc">
 				<div class="tip-row">
 					<div class="icon-tip">
@@ -441,36 +408,20 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 	<!-- <ProductViewNonCategory titleProduct={productName} popularProducts={productList} /> -->
 	<TechnicalInfo infos={JSON.parse(product.technicalInfo)} />
 	<ProductInfo productInfo={product.productInfo} />
-	<Slogan />
-	<Footer />
 </div>
 
 <style>
-	.container {
-		max-width: 1236px;
-		margin: 0 auto;
-		background-color: rgb(235, 235, 235);
-		padding: 1rem 1rem 0 1rem;
-	}
 	.header {
 		border-bottom: #c0bfbf 1px solid;
 		margin-bottom: 1rem;
 	}
-	.breadcum {
-		display: flex;
-		background-color: #eeeeee;
-		align-items: center;
-		padding: 0.3rem 0.4rem;
-	}
-	ol li {
-		margin: 0 0.2rem;
-	}
+
 	.price {
 		background-color: #da251c;
 		display: flex;
@@ -503,11 +454,8 @@
 		object-fit: scale-down;
 	}
 	.product-layout {
-		display: grid;
-		grid-template-columns: 1fr 1fr 0.5fr;
-		column-gap: 3rem;
-		padding-bottom: 1rem;
 		background-color: #fff;
+		padding: 1rem 2rem;
 	}
 	.product-layout div:last-child {
 		grid-column-start: 2;
@@ -523,7 +471,9 @@
 		background-color: rgb(235, 235, 235);
 	}
 	.image-slider {
-		padding: 0 2rem;
+		display: grid;
+		grid-template-columns: 3fr 1fr;
+		gap: 2rem;
 	}
 	.detail-right-box {
 		background-color: #fff;
@@ -576,5 +526,16 @@
 	}
 	.support-ask-name {
 		vertical-align: 5px;
+	}
+	@media screen and (max-width: 528px) {
+		.order-text {
+			display: none;
+		}
+	}
+	@media screen and (max-width: 642px) {
+		.image-slider {
+			display: flex;
+			flex-direction: column;
+		}
 	}
 </style>

@@ -6,6 +6,9 @@ const requestUrl = BASE_URL + "/user/info"
 export const authenticateUser = async (event: RequestEvent) => {
     const {cookies} = event
     const jwt = cookies.get('jwt')
+    if(!jwt) {
+        return null
+    }
     const response = await fetch(requestUrl, {
         headers: {
             'Content-Type': 'application/json',

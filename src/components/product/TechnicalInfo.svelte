@@ -5,7 +5,7 @@
 	export let infos = [];
 </script>
 
-<div class="container mx-auto mt-4 bg-gray-100 px-4 py-4">
+<div class="container mx-auto mt-4 bg-white px-4 py-4">
 	<table class="w-full table-auto text-left text-gray-700">
 		<thead>
 			<tr class="border-b border-gray-200">

@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Dropdown, DropdownItem, Popover } from 'flowbite-svelte';
-	import type { PopularProductWithCat, SubCategory } from '../types/Product';
+	import type { PopularProductWithCat } from '../types/Product';
 
 	export let categories: PopularProductWithCat[] = [];
 </script>
