@@ -5,6 +5,7 @@
 	 * @type {import('../types/Banner').Banner[]}
 	 */
 	export let banners = [];
+	console.log(banners);
 	let images = banners.map((banner) => {
 		return {
 			alt: banner.name,
@@ -17,19 +18,21 @@
 
 <div class="slider-container">
 	<div class="max-h-fit max-w-full">
-		<Carousel
-			{images}
-			duration={3900}
-			let:Indicators
-			let:Controls
-			imgClass="object-contain h-full w-fit"
-		>
-			<a slot="slide" href={images[index].redirectUrl} target="_blank" let:Slide let:index>
-				<Slide image={images[index]} />
-			</a>
-			<Controls />
-			<Indicators />
-		</Carousel>
+		{#if banners.length > 0}
+			<Carousel
+				{images}
+				duration={3900}
+				let:Indicators
+				let:Controls
+				imgClass="object-contain h-full w-fit"
+			>
+				<a slot="slide" href={images[index].redirectUrl} target="_blank" let:Slide let:index>
+					<Slide image={images[index]} />
+				</a>
+				<Controls />
+				<Indicators />
+			</Carousel>
+		{/if}
 	</div>
 	<ZoneMarket />
 </div>
