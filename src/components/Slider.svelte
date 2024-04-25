@@ -1,10 +1,10 @@
-<script lang="ts">
+<script>
 	import { Carousel } from 'flowbite-svelte';
 	import ZoneMarket from './ZoneMarket.svelte';
-	import type { Banner } from '../types/Banner';
-	import { scale } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
-	export let banners: Banner[] = [];
+	/**
+	 * @type {import('../types/Banner').Banner[]}
+	 */
+	export let banners = [];
 	let images = banners.map((banner) => {
 		return {
 			alt: banner.name,
@@ -13,7 +13,6 @@
 			redirectUrl: banner.redirectUrl || ''
 		};
 	});
-	const scaleAnimation = (x: any) => scale(x, { duration: 500, easing: quintOut });
 </script>
 
 <div class="slider-container">
