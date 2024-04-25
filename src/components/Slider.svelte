@@ -10,7 +10,7 @@
 			alt: banner.name,
 			src: banner.imageUrl,
 			title: banner.name,
-			redirectUrl: banner.redirectUrl
+			redirectUrl: banner.redirectUrl || ''
 		};
 	});
 	const scaleAnimation = (x: any) => scale(x, { duration: 500, easing: quintOut });
