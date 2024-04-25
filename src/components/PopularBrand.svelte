@@ -5,11 +5,11 @@
 </script>
 
 <div class="container">
-	<div><p class="text-sm font-bold">THƯƠNG HIỆU NỔI BẬT</p></div>
+	<div><p class="text-sm font-bold">NHÃN HÀNG NỔI BẬT</p></div>
 	<div class="brand-container">
 		{#each brands as brand}
 			<div class="brand-block">
-				<a href="/bosch.html" class="brand-thumb" title="Bosch">
+				<a href="#" class="brand-thumb" title="Bosch">
 					<img class="lazy-img lazy-loaded" width="80" height="36" src={brand.imageUrl} alt="✓" />
 				</a>
 				<!-- <a href="/bosch.html" class="brand-thumb" title="Bosch">

@@ -6,12 +6,14 @@ export async function load() {
     // const response = await fetch(apiUrl);
     const data = await api.productApi.loadProductsWithCat()
     const brands = await api.brandApi.loadBrands()
+    const banners = await api.bannerApi.loadBanners()
   
     // Return data directly as a page property
     return {
       props: {
         productWithCatList: data,
-        brands: brands
+        brands: brands,
+        banners
       },
     };
   }

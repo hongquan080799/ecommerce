@@ -27,7 +27,7 @@
 			<p class="mb-6 text-2xl font-bold">{product.name}</p>
 			<Rating id="example-1" total={5} size={20} rating={4} />
 			<p class="text-sm">
-				Thương hiệu : <span class="text-sm text-blue-700">{product.brandName}</span>
+				Nhãn hàng : <span class="text-sm text-blue-700">{product.brandName}</span>
 			</p>
 		</div>
 		<div class="image-slider">

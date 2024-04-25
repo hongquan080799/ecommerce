@@ -1,28 +1,37 @@
-<script>
+<script lang="ts">
 	import { Carousel } from 'flowbite-svelte';
-	import Advertise from './Advertise.svelte';
 	import ZoneMarket from './ZoneMarket.svelte';
-	export const images = [
-		{
-			alt: 'page1',
-			src: 'https://st.meta.vn/img/thumb.ashx/Data/2024/Thang03/dieu-hoa/Banner-may-lanh-720x445.png',
-			title: 'page1'
-		},
-		{
-			alt: 'page2',
-			src: 'https://st.meta.vn/img/thumb.ashx/Data/2024/Thang03/banner-t30-pro-omni-720x445.jpg',
-			title: 'page2'
-		},
-		{
-			alt: 'page3',
-			src: 'https://st.meta.vn/img/thumb.ashx/Data/2024/Thang01/Banner-kosmen-720x445.jpg',
-			title: 'page3'
-		}
-	];
+	import type { Banner } from '../types/Banner';
+	import { scale } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+	export let banners: Banner[] = [];
+	let images = banners.map((banner) => {
+		return {
+			alt: banner.name,
+			src: banner.imageUrl,
+			title: banner.name,
+			redirectUrl: banner.redirectUrl
+		};
+	});
+	const scaleAnimation = (x: any) => scale(x, { duration: 500, easing: quintOut });
 </script>
 
 <div class="slider-container">
-	<Carousel {images} duration={2000} />
+	<div class="max-h-fit max-w-full">
+		<Carousel
+			{images}
+			duration={3900}
+			let:Indicators
+			let:Controls
+			imgClass="object-contain h-full w-fit"
+		>
+			<a slot="slide" href={images[index].redirectUrl} target="_blank" let:Slide let:index>
+				<Slide image={images[index]} />
+			</a>
+			<Controls />
+			<Indicators />
+		</Carousel>
+	</div>
 	<ZoneMarket />
 </div>
 

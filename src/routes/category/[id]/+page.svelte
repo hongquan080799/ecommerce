@@ -27,7 +27,7 @@
 			</ul>
 		</div>
 		<div class="filter-section mt-16">
-			<p class="text-md text-center font-bold">Thương hiệu</p>
+			<p class="text-md text-center font-bold">Nhãn hàng</p>
 			<SearchBar />
 			<ul class="mt-2">
 				{#each categoryTree.brandList as brand}
