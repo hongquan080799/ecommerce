@@ -1,12 +1,14 @@
 <script lang="ts">
-	import type { PopularProductWithCat, Product } from '../types/Product';
+	import type { PopularProductWithCat, Product, SubCategory } from '../types/Product';
 	import ProductView from './ProductView.svelte';
 	export let categories: PopularProductWithCat[] = [];
-	let products = categories
-		.map((item) => item.subCategories)
-		.flat()
-		.map((item2) => item2.products)
-		.flat();
+	const getProductsList = (subCatList: SubCategory[]) => {
+		return subCatList
+			.map((subCat) => {
+				return subCat.products;
+			})
+			.flat();
+	};
 </script>
 
 <div class="product-container">
@@ -15,7 +17,7 @@
 			titleCatogory={cat.name}
 			titleProduct={`${cat.name} nổi bật`}
 			categoryList={cat.subCategories}
-			popularProducts={products}
+			popularProducts={getProductsList(cat.subCategories)}
 		/>
 	{/each}
 </div>

@@ -1,7 +1,17 @@
 <script lang="ts">
+	import { Drawer, CloseButton } from 'flowbite-svelte';
 	import type { PopularProductWithCat } from '../types/Product';
+	import { sineIn } from 'svelte/easing';
+	import { hidden } from '$lib/Store';
 
 	export let categories: PopularProductWithCat[] = [];
+	let hiddenSub = true;
+	let transitionParams = {
+		x: -320,
+		duration: 200,
+		easing: sineIn
+	};
+	let subList: any[] = [];
 </script>
 
 <div class="category-container">
@@ -23,6 +33,59 @@
 			</li>
 		{/each}
 	</ul>
+	<div class="drawer-container">
+		<Drawer transitionType="fly" {transitionParams} bind:hidden={$hidden} id="sidebar">
+			<div class="flex items-center">
+				<h5
+					id="drawer-label"
+					class="mb-6 inline-flex items-center text-base font-semibold uppercase text-gray-500 dark:text-gray-400"
+				>
+					Danh mục
+				</h5>
+				<CloseButton on:click={() => ($hidden = true)} class="mb-4 dark:text-white" />
+			</div>
+			<ul class="flex flex-col justify-center text-gray-600">
+				{#each categories as cat}
+					<li
+						class="my-1 flex h-9 items-center"
+						id={`${cat.id}`}
+						on:click={() => {
+							subList = cat.subCategories;
+							hiddenSub = false;
+						}}
+					>
+						<img src={cat.imageUrl} alt={cat.name} class="mr-2 h-full" />
+						<p>{cat.name}</p>
+					</li>
+				{/each}
+			</ul>
+		</Drawer>
+		<Drawer transitionType="fly" {transitionParams} bind:hidden={hiddenSub} id="sidebarSub">
+			<div class="flex items-center">
+				<h5
+					id="drawer-label"
+					class="mb-6 inline-flex items-center text-base font-semibold uppercase text-gray-500 dark:text-gray-400"
+				>
+					Danh mục
+				</h5>
+				<CloseButton
+					on:click={() => {
+						hiddenSub = true;
+						$hidden = false;
+					}}
+					class="mb-4 dark:text-white"
+				/>
+			</div>
+			<ul class="flex flex-col justify-center text-gray-600">
+				{#each subList as cat}
+					<li class="my-1 flex h-9 items-center" id={`${cat.id}`}>
+						<img src={cat.imageUrl} alt={cat.name} class="mr-2 h-full" />
+						<p>{cat.name}</p>
+					</li>
+				{/each}
+			</ul>
+		</Drawer>
+	</div>
 </div>
 
 <style>
@@ -70,5 +133,10 @@
 	}
 	.list li:hover .sub-cat {
 		display: block;
+	}
+	@media screen and (max-width: 900px) {
+		.list {
+			display: none;
+		}
 	}
 </style>

@@ -13,6 +13,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 	let { productWithCatList, brands, banners } = data.props;
+	console.log(productWithCatList);
 </script>
 
 <Header />

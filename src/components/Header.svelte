@@ -1,12 +1,13 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { Button } from 'flowbite-svelte';
+	import { hidden } from '$lib/Store';
 </script>
 
 <nav class="navbar">
 	<div class="box-header">
 		<div class="box-top-menu">
-			<div class="hamburger-menu">
+			<div class="hamburger-menu" on:click={() => ($hidden = false)}>
 				<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 15 15"
 					><path
 						fill="currentColor"
