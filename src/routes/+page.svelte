@@ -12,11 +12,11 @@
 	// class="text-gray-700"
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let { productWithCatList, brands, banners } = data.props;
+	let { productWithCatList, brands, banners, userInfo } = data.props;
 	console.log(productWithCatList);
 </script>
 
-<Header />
+<Header {userInfo} />
 <div class="body-container">
 	<Category categories={productWithCatList} />
 	<Slider {banners} />
@@ -43,5 +43,6 @@
 		display: flex;
 		flex-direction: column;
 		padding: 0 5px;
+		width: 100%;
 	}
 </style>

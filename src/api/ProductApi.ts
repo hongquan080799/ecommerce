@@ -88,6 +88,28 @@ export const loadProducts = async (): Promise<Product[]> => {
     })
 }
 
+export const loadProductById = async (id: number): Promise<Product> => {
+    return new Promise<Product>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl + "/" + id, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+    
+            if (response.ok) {
+                const data = response.json();
+                resolve(data)
+            } else {
+                reject(response.status)
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 export const loadProductsWithCat = async (): Promise<PopularProductWithCat[]> => {
     return new Promise<PopularProductWithCat[]>(async (resolve, reject) => {
         try {

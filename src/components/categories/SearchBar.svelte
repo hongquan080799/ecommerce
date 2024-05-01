@@ -1,6 +1,6 @@
 <div class="box-search-container">
 	<div class="box-search">
-		<input />
+		<input placeholder="Tìm kiếm nhãn hàng" />
 		<button
 			><svg
 				class="h-5 w-5 text-white dark:text-white"

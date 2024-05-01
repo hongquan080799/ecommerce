@@ -22,205 +22,67 @@
 </script>
 
 <div class="container">
+	<div class="header">
+		<p class="mb-6 text-2xl font-bold">{product.name}</p>
+		<Rating id="example-1" total={5} size={20} rating={4} />
+		<p class="text-sm">
+			Nhãn hàng : <span class="text-sm text-blue-700">{product.brandName}</span>
+		</p>
+	</div>
 	<div class="product-layout">
-		<div class="header">
-			<p class="mb-6 text-2xl font-bold">{product.name}</p>
-			<Rating id="example-1" total={5} size={20} rating={4} />
-			<p class="text-sm">
-				Nhãn hàng : <span class="text-sm text-blue-700">{product.brandName}</span>
-			</p>
-		</div>
-		<div class="image-slider">
-			<div class="max-w-4xl space-y-4">
-				<Carousel {images} {forward} let:Indicators let:Controls bind:index>
-					<Controls />
-					<Indicators />
-				</Carousel>
-			</div>
-			<div class="thumbnails-container">
-				<Thumbnails
-					class="flex-wrap justify-start gap-3 bg-transparent"
-					let:Thumbnail
-					let:image
-					let:selected
-					{images}
-					bind:index
-				>
-					<Thumbnail
-						{...image}
-						{selected}
-						class="w-32 outline outline-green-300"
-						activeClass="outline outline-green-400"
-					/>
-				</Thumbnails>
-			</div>
-		</div>
-		<div class="mt-5 flex items-center">
-			<p class="mr-5 text-2xl font-medium text-red-600">
-				{formattedPrice(product.price - product.price * product.discount)}
-			</p>
-			<p class="text-md">
-				<span class="italic line-through">{formattedPrice(product.price)}</span>
-			</p>
-		</div>
-		<div class="status">
-			<div class="my-2 flex items-center">
-				<p class="text-md mr-5">Trạng thái:</p>
-				<Badge color="green">Còn hàng</Badge>
-			</div>
-			<div class="my-2 flex items-center">
-				<p class="text-md mr-5">Kho:</p>
-				<p class="text-md">{product.quantity}</p>
-			</div>
-			<div class="my-2 flex items-center">
-				<p class="text-md mr-5">Chọn số lượng:</p>
-				<div class="flex h-8 items-center text-sm">
-					<button
-						class=" m-0 h-full w-8 border border-gray-400 font-bold text-gray-400 shadow outline-none hover:shadow-lg"
-						on:click={() => {
-							if (orderNumber > 1) orderNumber -= 1;
-						}}
-					>
-						-
-					</button>
-					<input
-						type="number"
-						class="m-0 h-full w-16 border-gray-400"
-						bind:value={orderNumber}
-						min={1}
-						max={product.quantity}
-					/>
-					<button
-						class="m-0 h-full w-8 border border-gray-400 font-bold text-gray-400 shadow outline-none hover:shadow-lg"
-						on:click={() => {
-							if (orderNumber < product.quantity) orderNumber += 1;
-						}}
-					>
-						+
-					</button>
+		<div class="product-section">
+			<div class="image-slider">
+				<div class="max-w-4xl space-y-4">
+					<Carousel {images} {forward} let:Indicators let:Controls bind:index>
+						<Controls />
+						<Indicators />
+					</Carousel>
 				</div>
-			</div>
-		</div>
-		<div class="functional-btn my-5 mt-10 flex text-white">
-			<button class="mr-2 flex w-1/2 items-center justify-between rounded-lg bg-red-600 py-2">
-				<span>
-					<svg
-						class="h-8 w-8 text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						viewBox="0 0 24 24"
+				<div class="thumbnails-container">
+					<Thumbnails
+						class="flex-wrap justify-start gap-3 bg-transparent"
+						let:Thumbnail
+						let:image
+						let:selected
+						{images}
+						bind:index
 					>
-						<path
-							fill-rule="evenodd"
-							d="M5 3a1 1 0 0 0 0 2h.687L7.82 15.24A3 3 0 1 0 11.83 17h2.34A3 3 0 1 0 17 15H9.813l-.208-1h8.145a1 1 0 0 0 .979-.796l1.25-6A1 1 0 0 0 19 6h-2.268A2 2 0 0 1 15 9a2 2 0 1 1-4 0 2 2 0 0 1-1.732-3h-1.33L7.48 3.796A1 1 0 0 0 6.5 3H5Z"
-							clip-rule="evenodd"
+						<Thumbnail
+							{...image}
+							{selected}
+							class="w-20 outline outline-green-300"
+							activeClass="outline outline-green-400"
 						/>
-						<path
-							fill-rule="evenodd"
-							d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
-				</span>
-				<div class=" flex flex-1 flex-col items-center">
-					<p class="text-lg font-bold">Đặt mua</p>
-					<p class="order-text text-sm">Giao hàng trên toàn quốc</p>
+					</Thumbnails>
 				</div>
-			</button>
-			<button class="flex w-1/2 items-center justify-between rounded-lg bg-green-700 py-2">
-				<svg
-					class="h-8 w-8 text-white"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					fill="currentColor"
-					viewBox="0 0 24 24"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-				<div class=" flex flex-1 flex-col items-center">
-					<p class="text-lg font-bold">Tư vấn</p>
-					<p class="order-text text-sm">Chúng tôi sẽ tư vấn cho bạn</p>
-				</div>
-			</button>
+			</div>
 		</div>
-
-		<!-- <div>
-			<div class="header">
-				<p class="mb-6 text-lg font-bold">{product.name}</p>
-				<Rating id="example-1" total={5} size={20} rating={4} />
-				<p class="text-sm">
-					Thương hiệu : <span class="text-sm text-blue-700">{product.brandName}</span>
+		<div class="product-section flex flex-col">
+			<div class="mt-5 flex flex-col">
+				<p class="mr-5 text-3xl font-medium text-red-600">
+					{formattedPrice(product.price - product.price * product.discount)}
+					<span class="text-lg font-medium text-gray-500"> / Cái </span>
 				</p>
-			</div>
-			<div class="price">
-				<div class="price-block">
-					<p class="text-xl text-white">
-						{formattedPrice(product.price - product.price * product.discount)}
-					</p>
-					<p class="text-md text-white">
-						{`${product.discount * 100} %`}
-						<span class="italic line-through">{formattedPrice(product.price)}</span>
-					</p>
-				</div>
-				<div class="flash-sale">
-					<p class="text-md text-white">Kết thúc sau 27 phút</p>
-					<p class="text-md text-white">Còn <span class="italic">{product.quantity}</span> chiếc</p>
-				</div>
+				<p class="text-md">
+					<span class="italic line-through">{formattedPrice(product.price)}</span>
+				</p>
 			</div>
 			<div class="status">
 				<div class="my-2 flex items-center">
-					<p class="mr-5 text-sm">Trạng thái:</p>
-					<p class="text-sm">Còn hàng</p>
+					<p class="text-md mr-5">Trạng thái:</p>
+					<Badge color="green">Còn hàng</Badge>
 				</div>
 				<div class="my-2 flex items-center">
-					<p class="mr-5 text-sm">Chọn số lượng:</p>
-					<div class="flex h-8 items-center text-sm">
-						<button
-							class=" m-0 h-full w-8 border border-gray-400 font-bold text-gray-400 shadow outline-none hover:shadow-lg"
-						>
-							-
-						</button>
-						<input type="number" class="m-0 h-full w-16 border-gray-400" />
-						<button
-							class="m-0 h-full w-8 border border-gray-400 font-bold text-gray-400 shadow outline-none hover:shadow-lg"
-						>
-							+
-						</button>
-					</div>
-				</div>
-				<div class="my-2 flex items-center">
-					<p class="mr-5 text-sm">Cho vào giỏ:</p>
-					<svg
-						class="e h-6 w-6 text-blue-500"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							fill-rule="evenodd"
-							d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
+					<p class="text-md mr-5">Kho:</p>
+					<p class="text-md">{product.quantity}</p>
 				</div>
 			</div>
-			<div class="functional-btn my-2 flex text-white">
-				<button class="mr-2 flex w-1/2 items-center justify-between bg-red-600 py-2">
-					<span>
+			<div class="hotline-box">
+				<span class="text-sm">Tư vấn miễn phí, vui lòng gọi hotline</span>
+				<a href="tel:096 8833 253">
+					<p class="flex items-center justify-center text-lg">
 						<svg
-							class="h-8 w-8 text-white"
+							class="h-6 w-6"
 							aria-hidden="true"
 							xmlns="http://www.w3.org/2000/svg"
 							width="24"
@@ -229,186 +91,73 @@
 							viewBox="0 0 24 24"
 						>
 							<path
-								fill-rule="evenodd"
-								d="M5 3a1 1 0 0 0 0 2h.687L7.82 15.24A3 3 0 1 0 11.83 17h2.34A3 3 0 1 0 17 15H9.813l-.208-1h8.145a1 1 0 0 0 .979-.796l1.25-6A1 1 0 0 0 19 6h-2.268A2 2 0 0 1 15 9a2 2 0 1 1-4 0 2 2 0 0 1-1.732-3h-1.33L7.48 3.796A1 1 0 0 0 6.5 3H5Z"
-								clip-rule="evenodd"
-							/>
-							<path
-								fill-rule="evenodd"
-								d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
-								clip-rule="evenodd"
+								d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"
 							/>
 						</svg>
-					</span>
-					<div class="flex flex-1 flex-col items-center">
-						<p class="text-lg font-bold">Đặt mua</p>
-						<p class="text-sm">Giao hàng trên toàn quốc</p>
-					</div>
-				</button>
-				<button class="flex w-1/2 items-center justify-between bg-green-700 py-2">
-					<svg
-						class="h-8 w-8 text-white"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						width="24"
-						height="24"
-						fill="currentColor"
-						viewBox="0 0 24 24"
+						096 8833 253
+					</p></a
+				>
+			</div>
+			<div class="support-ask-title" style="margin-top: 10px;"><p>Chat với META</p></div>
+			<div class=" flex">
+				<div class="support-ask-item">
+					<span class="support-ask-icon"
+						><a href="/#" target="_blank" title="Chat Facebook" rel="noreferrer nofollow">
+							<img
+								class="lazy-img lazy-loaded"
+								alt="✓"
+								src="https://meta.vn/images/messenger-icon.png"
+								data-src="images/messenger-icon.png"
+							/></a
+						></span
 					>
-						<path
-							fill-rule="evenodd"
-							d="M11 4a1 1 0 0 0-1 1v10h10.459l.522-3H16a1 1 0 1 1 0-2h5.33l.174-1H16a1 1 0 1 1 0-2h5.852l.117-.67v-.003A1.983 1.983 0 0 0 20.06 4H11ZM9 18c0-.35.06-.687.17-1h11.66c.11.313.17.65.17 1v1a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-1Zm-6.991-7a17.8 17.8 0 0 0 .953 6.1c.198.54 1.61.9 2.237.9h1.34c.17 0 .339-.032.495-.095a1.24 1.24 0 0 0 .41-.27c.114-.114.2-.25.254-.396a1.01 1.01 0 0 0 .055-.456l-.242-2.185a1.073 1.073 0 0 0-.395-.71 1.292 1.292 0 0 0-.819-.286H5.291c-.12-.863-.17-1.732-.145-2.602-.024-.87.024-1.74.145-2.602H6.54c.302 0 .594-.102.818-.286a1.07 1.07 0 0 0 .396-.71l.24-2.185a1.01 1.01 0 0 0-.054-.456 1.088 1.088 0 0 0-.254-.397 1.223 1.223 0 0 0-.41-.269A1.328 1.328 0 0 0 6.78 4H4.307c-.3-.001-.592.082-.838.238a1.335 1.335 0 0 0-.531.634A17.127 17.127 0 0 0 2.008 11Z"
-							clip-rule="evenodd"
-						/>
-					</svg>
-					<div class="flex flex-1 flex-col items-center">
-						<p class="text-lg font-bold">Tư vấn</p>
-						<p class="text-sm">Chúng tôi sẽ tư vấn cho bạn</p>
-					</div>
-				</button>
+					<span class="support-ask-name"
+						><a href="/#" target="_blank" title="Chat Facebook" rel="noreferrer nofollow"
+							><p>Chat facebook</p></a
+						></span
+					>
+				</div>
+				<div class="support-ask-item">
+					<span class="support-ask-icon"
+						><a
+							href="/#"
+							class="zalo-chat"
+							target="_blank"
+							title="Chat Zalo với META"
+							rel="noreferrer nofollow"
+						>
+							<img
+								class="lazy-img lazy-loaded"
+								alt="✓"
+								src="https://meta.vn/images/zalo-icon.png"
+								data-src="images/zalo-icon.png"
+							/></a
+						></span
+					>
+					<span class="support-ask-name"
+						><a
+							href="/#"
+							class="zalo-chat"
+							target="_blank"
+							title="Chat Zalo với META"
+							rel="noreferrer nofollow">Chat Zalo</a
+						></span
+					>
+				</div>
+			</div>
+			<div class=" flex flex-1 items-end justify-end">
+				<div class="flex h-10 w-full items-center overflow-hidden rounded-sm text-sm">
+					<input
+						type="number"
+						class="m-0 h-full w-16 border-gray-400"
+						bind:value={orderNumber}
+						min={1}
+						max={product.quantity}
+					/>
+					<button class="m-0 h-full w-full bg-red-500 text-white"> Thêm vào giỏ </button>
+				</div>
 			</div>
 		</div>
-		<div class="detail-right-box care-detail">
-			<div class="detail-right-box-title">Thông tin hữu ích</div>
-			<div class="detail-right-box-wrap">
-				<div class="care-detail-box">
-					<div class="care-detail-item bao-hanh-care">
-						<a href="/bao-hanh/lg-1106">
-							<span>
-								<img alt="✓" height="12" src="https://meta.vn/images/tools-icon-s.png" /></span
-							>
-							<span class="txt-e-c ml-2">Trung tâm bảo hành</span>
-						</a>
-					</div>
-
-					<div class="care-detail-item van-chuyen-care">
-						<a href="/chinh-sach-giao-nhan" rel="nofollow">
-							<span>
-								<img
-									alt="✓"
-									height="12"
-									src="https://meta.vn/images/giao-hang-toan-quoc-icon.png"
-								/></span
-							>
-							<span class="txt-e-c ml-2">Thông tin vận chuyển</span></a
-						>
-					</div>
-					<div class="care-detail-item thanh-toan-care">
-						<a href="/huong-dan-thanh-toan" rel="nofollow">
-							<span>
-								<img
-									alt="✓"
-									height="12"
-									src="https://meta.vn/images/dich-vu-uy-tin-icon.png"
-								/></span
-							>
-							<span class="txt-e-c ml-2">Hướng dẫn thanh toán</span></a
-						>
-					</div>
-
-					<div class="support-ask-title" style="margin-top: 10px;">Chat với META</div>
-					<div class="support-ask-body">
-						<div class="support-ask-item">
-							<span class="support-ask-icon"
-								><a
-									href="/facebook"
-									target="_blank"
-									title="Chat Facebook"
-									rel="noreferrer nofollow"
-								>
-									<img
-										class="lazy-img lazy-loaded"
-										alt="✓"
-										src="https://meta.vn/images/messenger-icon.png"
-										data-src="images/messenger-icon.png"
-									/></a
-								></span
-							>
-							<span class="support-ask-name"
-								><a href="/facebook" target="_blank" title="Chat Facebook" rel="noreferrer nofollow"
-									>meta.vn</a
-								></span
-							>
-						</div>
-						<div class="support-ask-item">
-							<span class="support-ask-icon"
-								><a
-									href="/zalo"
-									class="zalo-chat"
-									target="_blank"
-									title="Chat Zalo với META"
-									rel="noreferrer nofollow"
-								>
-									<img
-										class="lazy-img lazy-loaded"
-										alt="✓"
-										src="https://meta.vn/images/zalo-icon.png"
-										data-src="images/zalo-icon.png"
-									/></a
-								></span
-							>
-							<span class="support-ask-name"
-								><a
-									href="/zalo"
-									class="zalo-chat"
-									target="_blank"
-									title="Chat Zalo với META"
-									rel="noreferrer nofollow">Chat Zalo</a
-								></span
-							>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<!-- <div class="Service-freeship">
-			<div class="tip-wrap-pc">
-				<div class="tip-row">
-					<div class="icon-tip">
-						<img
-							class="lazy-img lazy-loaded"
-							alt=""
-							src="https://meta.vn/images/free-ship.svg"
-							data-src="images/free-ship.svg"
-						/>
-					</div>
-					<div class="txt-tip">
-						Miễn phí giao hàng trong nội thành Hà Nội và nội thành TP. Hồ Chí Minh. <a
-							class="setup-view"
-							target="_blank"
-							href="/danh-sach-khu-vuc-mien-phi-van-chuyen"
-							rel="nofollow">(Xem thêm)<i class="fa fa-angle-right"></i></a
-						>
-					</div>
-				</div>
-
-				<div class="tip-row">
-					<div class="icon-tip">
-						<img
-							class="lazy-img lazy-loaded"
-							alt=""
-							src="https://st.meta.vn/img/thumb.ashx/Data/image/2024/03/14/icon-chinhhang.png"
-							data-src="https://st.meta.vn/img/thumb.ashx/Data/image/2024/03/14/icon-chinhhang.png"
-						/>
-					</div>
-					<div class="txt-tip"><p>Hàng Chính Hãng</p></div>
-				</div>
-
-				<div class="tip-row">
-					<div class="icon-tip">
-						<img
-							class="lazy-img lazy-loaded"
-							alt=""
-							src="https://st.meta.vn/img/thumb.ashx/Data/image/2024/03/15/icon-baohanh-c.png"
-							data-src="https://st.meta.vn/img/thumb.ashx/Data/image/2024/03/15/icon-baohanh-c.png"
-						/>
-					</div>
-					<div class="txt-tip">
-						<p>Bảo hành <strong>chính hãng</strong>, có người đến tận nhà.</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 
 	<!-- <ProductViewNonCategory titleProduct={productName} popularProducts={productList} /> -->
@@ -418,6 +167,7 @@
 
 <style>
 	.header {
+		margin-top: 1rem;
 		border-bottom: #c0bfbf 1px solid;
 		margin-bottom: 1rem;
 	}
@@ -454,12 +204,11 @@
 		object-fit: scale-down;
 	}
 	.product-layout {
-		background-color: #fff;
-		padding: 1rem 2rem;
+		display: grid;
+		grid-template-columns: 1fr 0.4fr;
+		gap: 1rem;
 	}
-	.product-layout div:last-child {
-		grid-column-start: 2;
-	}
+
 	.care-detail {
 		grid-row-start: 1;
 		grid-column-start: 3;
@@ -513,8 +262,8 @@
 		width: 12px;
 	}
 	.support-ask-item {
-		width: 110px;
 		display: inline-block;
+		margin-right: 1rem;
 	}
 	.support-ask-icon img {
 		width: 20px;
@@ -522,7 +271,7 @@
 	}
 	.support-ask-item a {
 		display: inline-block;
-		font-size: 14px;
+		font-size: 1rem;
 	}
 	.support-ask-name {
 		vertical-align: 5px;
@@ -537,5 +286,148 @@
 			display: flex;
 			flex-direction: column;
 		}
+		.product-layout {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+	}
+	@media screen and (max-width: 1000px) {
+		.image-slider {
+			display: flex;
+			flex-direction: column;
+		}
+		.product-layout {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+	}
+	.product-section {
+		background-color: #fff;
+		padding: 1rem 1rem;
+	}
+	.hotline-box a {
+		color: #f27349;
+	}
+	.hotline-box {
+		-webkit-text-size-adjust: 100%;
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		--flatsome-scroll-padding-top: calc(
+			var(--flatsome--header--sticky-height, 0px) + var(--wp-admin--admin-bar--height, 0px)
+		);
+		--primary-color: #292c2e;
+		--flatsome--header--sticky-height: 70px;
+		-webkit-font-smoothing: antialiased;
+		line-height: 1.5;
+		font-size: 100%;
+		font-family: Roboto, sans-serif;
+		font-weight: 400;
+		font-style: normal;
+		--wp--preset--color--black: #000000;
+		--wp--preset--color--cyan-bluish-gray: #abb8c3;
+		--wp--preset--color--white: #ffffff;
+		--wp--preset--color--pale-pink: #f78da7;
+		--wp--preset--color--vivid-red: #cf2e2e;
+		--wp--preset--color--luminous-vivid-orange: #ff6900;
+		--wp--preset--color--luminous-vivid-amber: #fcb900;
+		--wp--preset--color--light-green-cyan: #7bdcb5;
+		--wp--preset--color--vivid-green-cyan: #00d084;
+		--wp--preset--color--pale-cyan-blue: #8ed1fc;
+		--wp--preset--color--vivid-cyan-blue: #0693e3;
+		--wp--preset--color--vivid-purple: #9b51e0;
+		--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(
+			135deg,
+			rgba(6, 147, 227, 1) 0%,
+			rgb(155, 81, 224) 100%
+		);
+		--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(
+			135deg,
+			rgb(122, 220, 180) 0%,
+			rgb(0, 208, 130) 100%
+		);
+		--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(
+			135deg,
+			rgba(252, 185, 0, 1) 0%,
+			rgba(255, 105, 0, 1) 100%
+		);
+		--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(
+			135deg,
+			rgba(255, 105, 0, 1) 0%,
+			rgb(207, 46, 46) 100%
+		);
+		--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(
+			135deg,
+			rgb(238, 238, 238) 0%,
+			rgb(169, 184, 195) 100%
+		);
+		--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(
+			135deg,
+			rgb(74, 234, 220) 0%,
+			rgb(151, 120, 209) 20%,
+			rgb(207, 42, 186) 40%,
+			rgb(238, 44, 130) 60%,
+			rgb(251, 105, 98) 80%,
+			rgb(254, 248, 76) 100%
+		);
+		--wp--preset--gradient--blush-light-purple: linear-gradient(
+			135deg,
+			rgb(255, 206, 236) 0%,
+			rgb(152, 150, 240) 100%
+		);
+		--wp--preset--gradient--blush-bordeaux: linear-gradient(
+			135deg,
+			rgb(254, 205, 165) 0%,
+			rgb(254, 45, 45) 50%,
+			rgb(107, 0, 62) 100%
+		);
+		--wp--preset--gradient--luminous-dusk: linear-gradient(
+			135deg,
+			rgb(255, 203, 112) 0%,
+			rgb(199, 81, 192) 50%,
+			rgb(65, 88, 208) 100%
+		);
+		--wp--preset--gradient--pale-ocean: linear-gradient(
+			135deg,
+			rgb(255, 245, 203) 0%,
+			rgb(182, 227, 212) 50%,
+			rgb(51, 167, 181) 100%
+		);
+		--wp--preset--gradient--electric-grass: linear-gradient(
+			135deg,
+			rgb(202, 248, 128) 0%,
+			rgb(113, 206, 126) 100%
+		);
+		--wp--preset--gradient--midnight: linear-gradient(
+			135deg,
+			rgb(2, 3, 129) 0%,
+			rgb(40, 116, 252) 100%
+		);
+		--wp--preset--font-size--small: 13px;
+		--wp--preset--font-size--medium: 20px;
+		--wp--preset--font-size--large: 36px;
+		--wp--preset--font-size--x-large: 42px;
+		--wp--preset--spacing--20: 0.44rem;
+		--wp--preset--spacing--30: 0.67rem;
+		--wp--preset--spacing--40: 1rem;
+		--wp--preset--spacing--50: 1.5rem;
+		--wp--preset--spacing--60: 2.25rem;
+		--wp--preset--spacing--70: 3.38rem;
+		--wp--preset--spacing--80: 5.06rem;
+		--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);
+		--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);
+		--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);
+		--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1),
+			6px 6px rgba(0, 0, 0, 1);
+		--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);
+		box-sizing: border-box;
+		text-align: center;
+		padding: 15px 10px;
+		border-radius: 8px;
+		border: 1px solid #ccc;
+		background: #081021;
+		color: #fff;
+		margin-bottom: 15px;
+		margin-top: 10px;
 	}
 </style>

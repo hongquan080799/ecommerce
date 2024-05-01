@@ -2,7 +2,7 @@
 	import { A, Checkbox, Button, Card } from 'flowbite-svelte';
 	export let title = 'Create a Free Account';
 	export let site = {
-		name: 'Flowbite1',
+		name: 'YOUNEED',
 		img: '/images/flowbite-svelte-icon-logo.svg',
 		link: '/',
 		imgAlt: 'FlowBite Logo1'
@@ -14,7 +14,7 @@
 	export let loginLink = '/';
 	export let mainClass = 'bg-gray-50 dark:bg-gray-900 w-full';
 	export let mainDivClass =
-		'flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900';
+		'flex flex-col items-center justify-center px-6  dark:bg-gray-900 mt-10';
 	export let siteLinkClass =
 		'flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white';
 	export let siteImgClass = 'mr-4 h-11';

@@ -4,7 +4,7 @@
 	import type { Category } from '../types/Category';
 	import type { ProductWithCat } from '../types/Product';
 	import { formattedPrice } from '../utils/Format';
-	import { CartOutline } from 'flowbite-svelte-icons';
+	import { CartOutline, EyeOutline } from 'flowbite-svelte-icons';
 	export let titleCatogory: string;
 	export let titleProduct: string;
 	export let categoryList: Category[];
@@ -15,30 +15,35 @@
 	<p class="text-sm font-bold">{titleCatogory}</p>
 	<ul class="category-container">
 		{#each categoryList as category (category.id)}
-			<li class="category-item">
-				<img src={category.imageUrl} alt={category.name} />
-				<p class="text-sm">{category.name}</p>
-			</li>
+			<a href={`/category/${category.id}`}>
+				<li class="category-item">
+					<img src={category.imageUrl} alt={category.name} />
+					<p class="text-sm">{category.name}</p>
+				</li>
+			</a>
 		{/each}
 	</ul>
 	<p class="mt-4 text-sm font-bold">{titleProduct}</p>
 	<ul class="product-container">
 		{#each popularProducts as product}
 			<li class="product-item">
-				<div class="flex justify-center">
+				<div class="flex max-h-16 justify-center">
 					<img src={product.images[0]} alt={product.name} />
 				</div>
-				<p class="text-sm font-medium">{product.name}</p>
+				<p class="max-h-10 text-sm font-medium">{product.name}</p>
 				<p class="mt-4 text-sm text-blue-500">{product.brand.name}</p>
 				<p class="text-sm font-bold text-red-700">{formattedPrice(product.price)}</p>
 				<p class="text-xs font-light italic text-gray-500 line-through">
 					{formattedPrice(product.price - product.price * product.discount)}
 				</p>
 				<div class="mt-6 flex">
-					<Button size="sm" class="mr-1" color="green"><CartOutline /> Thêm vào giỏ</Button>
-					<Button color="primary" on:click={() => goto('/products/' + Number(product.id))}
-						>Xem</Button
+					<Button size="sm" class="mr-1 w-full" color="green"
+						><CartOutline />
+						<p class="add-to-card-text">Thêm vào giỏ</p></Button
 					>
+					<Button color="primary" on:click={() => goto('/products/' + Number(product.id))}
+						><EyeOutline />
+					</Button>
 				</div>
 			</li>
 		{/each}
@@ -71,9 +76,14 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 	}
+	.add-to-card-text {
+		@media screen and (max-width: 900px) {
+			display: none;
+		}
+	}
 	.category-item {
-		max-width: 20%;
-		min-width: 20%;
+		max-width: 10rem;
+		min-width: 10rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

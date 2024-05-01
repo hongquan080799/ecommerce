@@ -59,7 +59,11 @@
 							{/if}
 						</div>
 						<DropdownItem>Settings</DropdownItem>
-						<DropdownItem slot="footer">Sign out</DropdownItem>
+						<DropdownItem slot="footer"
+							><form action="/authentication/logout" method="POST">
+								<button class="btn btn-primary">Logout</button>
+							</form></DropdownItem
+						>
 					</Dropdown>
 				</div>
 			</div>

@@ -1,6 +1,25 @@
 import type { CatTree, Category } from "../types/Category";
 import { BASE_URL } from "../utils/EcommerceConst";
 const apiUrl = BASE_URL + '/category';
+const subCatUrl = BASE_URL + '/sub-category';
+
+export async function findAllSubCategory(): Promise<Category[]> {
+    return new Promise<Category[]>(async (resolve, reject) => {
+        try {
+            const response = await fetch(subCatUrl, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            });
+            const data = await response.json();
+            resolve(data);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 export async function insertCategory(data: Partial<Category>): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
         try {

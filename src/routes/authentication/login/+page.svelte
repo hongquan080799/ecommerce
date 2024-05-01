@@ -4,6 +4,7 @@
 	import MetaTag from '../../utils/MetaTag.svelte';
 	import * as api from '$api';
 	import { goto } from '$app/navigation';
+	import type { ActionData } from './$types';
 	let title = 'Đăng nhập';
 	let site = {
 		name: 'YOURNEED',
@@ -42,6 +43,7 @@
 	const description: string = 'Sign in example - Flowbite Svelte Admin Dashboard';
 	const metaTitle: string = 'Flowbite Svelte Admin Dashboard - Sign in';
 	const subtitle: string = 'Sign in';
+	export let form: ActionData;
 </script>
 
 <MetaTag {path} {description} title={metaTitle} {subtitle} />

@@ -1,7 +1,9 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { Button } from 'flowbite-svelte';
 	import { hidden } from '$lib/Store';
+	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	const defaultAvatarUrl = '/images/defaultAvata.png';
+	export let userInfo;
 </script>
 
 <nav class="navbar">
@@ -21,26 +23,57 @@
 				<a href="/" class="text-3xl font-bold text-white">MITA</a>
 			</div>
 			<div class="cart-and-account">
-				<button color="none" on:click={() => goto('/authentication/login')}>
-					<div class="item">
-						<svg
-							class="h-6 w-6 text-white"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							width="24"
-							height="24"
-							fill="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-						<p>Đăng nhập</p>
+				{#if userInfo != null}
+					<div class="ms-3 flex items-center">
+						<div class="flex cursor-pointer items-center">
+							<Button color="none" outline={false}
+								><span class="sr-only">Open user menu</span>
+								<img
+									class="h-8 w-8 rounded-full"
+									src={userInfo.avatar ? userInfo.avatar : defaultAvatarUrl}
+									alt="user photo"
+								/></Button
+							>
+							<p>{userInfo.lastName + ' ' + userInfo.firstName}</p>
+						</div>
+						<Dropdown>
+							<div slot="header" class="px-4 py-2">
+								<span class="block text-sm text-gray-900 dark:text-white">{userInfo.username}</span>
+								{#if userInfo.email}
+									<span class="block truncate text-sm font-medium">{userInfo.email}</span>
+								{/if}
+							</div>
+							<DropdownItem><a href="/profile">Settings</a></DropdownItem>
+							<DropdownItem slot="footer"
+								><form action="/authentication/logout" method="POST">
+									<button class="btn btn-primary">Logout</button>
+								</form></DropdownItem
+							>
+						</Dropdown>
 					</div>
-				</button>
+				{:else}
+					<button color="none" on:click={() => goto('/authentication/login')}>
+						<div class="item">
+							<svg
+								class="h-6 w-6 text-white"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								fill="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+							<p>Đăng nhập</p>
+						</div>
+					</button>
+				{/if}
+
 				<button>
 					<div class="item">
 						<svg

@@ -3,12 +3,17 @@
 	import Header from '../../../components/Header.svelte';
 	import Popular from '../../../components/Popular.svelte';
 	import Slogan from '../../../components/Slogan.svelte';
+	import QuestionAndAnswer from '../../../components/product/QuestionAndAnswer.svelte';
+	import Rating from '../../../components/product/Rating.svelte';
+	export let data;
 </script>
 
-<Header />
+<Header userInfo={data.userInfo} />
 <div class="body-container">
 	<slot />
-	<Popular />
+	<Popular subCategories={data.subCatList} />
+	<Rating product={data.product} jwt={data.jwt} />
+	<QuestionAndAnswer product={data.product} jwt={data.jwt} />
 	<Slogan />
 	<Footer />
 </div>

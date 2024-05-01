@@ -34,12 +34,11 @@
 			</Carousel>
 		{/if}
 	</div>
-	<ZoneMarket />
+	<!-- <ZoneMarket /> -->
 </div>
 
 <style>
 	.slider-container {
-		width: 100%;
 		background-color: #fff;
 	}
 </style>

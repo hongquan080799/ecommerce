@@ -1,5 +1,6 @@
 import * as api from '$api';
 import { redirect, type Actions } from "@sveltejs/kit";
+import {userInfo} from '$lib/Store'
 
 
 export const actions: Actions = {
@@ -17,6 +18,9 @@ export const actions: Actions = {
 		})
         if(response.userInfo.role.name === "ADMIN") {
             redirect(303, '/admin')
+        }else {
+            userInfo.set(response.userInfo)
+            redirect(303, '/')
         }
         return { success: true };
         

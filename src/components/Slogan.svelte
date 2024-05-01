@@ -54,7 +54,7 @@
 
 <style>
 	.container {
-		margin: 1rem 0;
+		margin: 0.5rem 0;
 		padding: 0.8rem 0.5rem;
 		padding-bottom: 1rem;
 		background-color: #fff;

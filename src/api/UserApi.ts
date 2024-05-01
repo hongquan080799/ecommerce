@@ -4,7 +4,7 @@ import type { Role, User } from "../types/User";
 import { BASE_URL } from "../utils/EcommerceConst";
 const apiUrl = BASE_URL + '/user';
 import {type Cookies } from '@sveltejs/kit';
-export async function login(data: any): Promise<any> {
+export async function login(request: any): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
         try {
             const response = await fetch(apiUrl +"/login", {
@@ -12,14 +12,15 @@ export async function login(data: any): Promise<any> {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-                body: JSON.stringify(data)
+                body: JSON.stringify(request)
             });
     
+            const data = await response.json();
             if (response.ok) {
-                const data = await response.json();
+                
                 resolve(data)
             } else {
-                reject(response.status)
+                reject(data)
             }
         } catch (error) {
             reject(error)
@@ -113,6 +114,31 @@ export async function insertUser(jwt: string, user: Partial<User>): Promise<any>
                 reject(response.status)
             }
         } catch (error) {
+            reject(error)
+        }
+    })
+}
+
+export async function register(user: Partial<User>): Promise<any> {
+    return new Promise<any>(async (resolve, reject) => {
+        try {
+            const response = await fetch(apiUrl + "/register", {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(user)
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+                resolve(data)
+            } else {
+                
+                reject(data)
+            }
+        } catch (error) {
+            console.log('error2')
             reject(error)
         }
     })

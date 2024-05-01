@@ -2,7 +2,8 @@ import { BASE_URL } from "../utils/EcommerceConst";
 import * as api from '../api'
 
 const apiUrl = BASE_URL + "/category"
-export async function load() {
+// @ts-ignore
+export async function load({locals}) {
     // const response = await fetch(apiUrl);
     const data = await api.productApi.loadProductsWithCat()
     const brands = await api.brandApi.loadBrands()
@@ -13,7 +14,8 @@ export async function load() {
       props: {
         productWithCatList: data,
         brands: brands,
-        banners
+        banners,
+        userInfo: locals.user
       },
     };
   }

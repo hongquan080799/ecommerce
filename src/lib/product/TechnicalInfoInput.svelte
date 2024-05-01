@@ -2,7 +2,15 @@
 	import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte';
 	let formModal = false;
 	export let onHandle: (result: string) => void;
-	export let technicleInfo: { key: string; value: string }[] = [];
+	export let technicleInfo: { key: string; value: string }[] = [
+		{ key: 'Thương hiệu', value: '' },
+		{ key: 'Mã sản phẩm', value: '' },
+		{ key: 'Kích Thước', value: '' },
+		{ key: 'Điện thế', value: '' },
+		{ key: 'Công suất', value: '' },
+		{ key: 'Thể tích', value: '' },
+		{ key: 'Nhiệt độ', value: '' }
+	];
 	const onAddItem = () => {
 		technicleInfo = [...technicleInfo, { key: '', value: '' }];
 	};

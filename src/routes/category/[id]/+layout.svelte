@@ -3,6 +3,7 @@
 	import Header from '../../../components/Header.svelte';
 	import Footer from '../../../components/Footer.svelte';
 	import Slogan from '../../../components/Slogan.svelte';
+	export let data;
 </script>
 
 <Header />
@@ -79,7 +80,7 @@
 
 <div class="body-container">
 	<slot />
-	<Popular />
+	<Popular subCategories={data.subCatList} />
 	<Slogan />
 	<Footer />
 </div>
@@ -91,11 +92,10 @@
 		background-color: rgb(235, 235, 235);
 	}
 	.body-container {
-		background-color: #fff;
+		background-color: rgb(235, 235, 235);
 		max-width: 1236px;
 		margin-inline: auto;
 		display: flex;
 		flex-direction: column;
-		padding: 1rem 5px;
 	}
 </style>
