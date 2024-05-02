@@ -1,9 +1,7 @@
-import type { RequestEvent } from "../routes/admin/$types";
-import type { Brand } from "../types/Brand";
+
 import type { Role, User } from "../types/User";
 import { BASE_URL } from "../utils/EcommerceConst";
 const apiUrl = BASE_URL + '/user';
-import {type Cookies } from '@sveltejs/kit';
 export async function login(request: any): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
         try {
