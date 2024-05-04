@@ -102,7 +102,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each filterData as data}
+			{#each filterData as dataItem}
 				<tr
 					class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
 				>
@@ -116,42 +116,42 @@
 							<label for="checkbox-table-search-1" class="sr-only">checkbox</label>
 						</div>
 					</td>
-					<td class="px-6 py-4">{data.id}</td>
+					<td class="px-6 py-4">{dataItem.id}</td>
 					<th
 						scope="row"
 						class="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
 					>
-						{data.name}
+						{dataItem.name}
 					</th>
 					<td class="w-15 px-6 py-4">
-						{data.description}
+						{dataItem.description}
 					</td>
 
 					<td class="w-36 px-6 py-4">
-						<ImageSlider imageList={data.images} />
+						<ImageSlider imageList={dataItem.images} />
 					</td>
 					<td class="px-6 py-4">
-						{formattedPrice(data.price)}
+						{formattedPrice(dataItem.price)}
 					</td>
 					<td class="px-6 py-4">
-						{`${data.discount * 100} %`}
+						{`${dataItem.discount * 100} %`}
 					</td>
 					<td class="w-15 px-6 py-4">
-						{data.categoryName}
+						{dataItem.categoryName}
 					</td>
 					<td class="w-15 px-6 py-4">
-						{data.brandName}
+						{dataItem.brandName}
 					</td>
 					<td class="w-15 px-6 py-4">
-						{data.quantity}
+						{dataItem.quantity}
 					</td>
 					<td class="px-6 py-4">
-						{moment(data.updatedAt).format('DD/MM/YYYY HH:mm:ss')}
+						{moment(dataItem.updatedAt).format('DD/MM/YYYY HH:mm:ss')}
 					</td>
-					<td class="px-6 py-4">{data.updatedBy}</td>
+					<td class="px-6 py-4">{dataItem.updatedBy}</td>
 					<td class="px-6 py-4">
 						<button
-							on:click={() => goto('/admin/product/update/' + data.id)}
+							on:click={() => goto('/admin/product/update/' + dataItem.id)}
 							type="button"
 							class="mb-2 me-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 							>Sửa</button
@@ -159,7 +159,7 @@
 						<button
 							type="button"
 							class="mb-2 me-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-							on:click={() => onDelete(Number(data.id))}>Xóa</button
+							on:click={() => onDelete(Number(dataItem.id))}>Xóa</button
 						>
 					</td>
 				</tr>

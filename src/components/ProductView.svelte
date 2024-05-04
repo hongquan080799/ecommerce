@@ -28,7 +28,7 @@
 		{#each popularProducts as product}
 			<li class="product-item">
 				<div class="flex max-h-16 justify-center">
-					<img src={product.images[0]} alt={product.name} />
+					<img src={product.images ? product.images[0] : ''} alt={product.name} />
 				</div>
 				<p class="max-h-10 text-sm font-medium">{product.name}</p>
 				<p class="mt-4 text-sm text-blue-500">{product.brand.name}</p>
