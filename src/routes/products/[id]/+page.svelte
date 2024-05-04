@@ -161,8 +161,12 @@
 	</div>
 
 	<!-- <ProductViewNonCategory titleProduct={productName} popularProducts={productList} /> -->
-	<TechnicalInfo infos={JSON.parse(product.technicalInfo)} />
-	<ProductInfo productInfo={product.productInfo} />
+	{#if product.technicalInfo}
+		<TechnicalInfo infos={JSON.parse(product.technicalInfo)} />
+	{/if}
+	{#if product.productInfo}
+		<ProductInfo productInfo={product.productInfo} />
+	{/if}
 </div>
 
 <style>
