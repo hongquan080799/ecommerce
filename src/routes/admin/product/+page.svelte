@@ -7,16 +7,16 @@
 	import { formattedPrice } from '../../../utils/Format';
 	/** @type {import('./$types').PageData} */
 	export let data;
-	let { loadedData } = data.props;
-	let filterData = loadedData as Product[];
+	let { products } = data;
+	let filterData = products;
 	let search = '';
 	const onSearch = () => {
 		if (search.length > 0) {
-			filterData = filterData.filter((item) =>
+			filterData = filterData.filter((item: any) =>
 				item.name.toLowerCase().includes(search.toLowerCase())
 			);
 		} else {
-			filterData = loadedData as Product[];
+			filterData = products;
 		}
 	};
 	const onDelete = async (id: number) => {
@@ -25,7 +25,7 @@
 		try {
 			await api.productApi.deleteProduct(id);
 			alert('Xóa sản phẩm thành công');
-			loadedData = (await api.productApi.loadProducts()) as unknown as Product[];
+			products = (await api.productApi.loadProducts()) as unknown as Product[];
 			onSearch();
 		} catch (error) {
 			console.log(error);

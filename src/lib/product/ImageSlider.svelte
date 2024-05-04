@@ -10,13 +10,18 @@
 	 */
 	export let imageList = [];
 	let formModal = false;
-	let images = imageList.map((image) => {
-		return {
-			alt: image,
-			src: image,
-			title: image
-		};
-	});
+	let images;
+	if (imageList) {
+		images = imageList.map((image) => {
+			return {
+				alt: image,
+				src: image,
+				title: image
+			};
+		});
+	} else {
+		images = []; // Set to empty array if null
+	}
 	const scaleAnimation = (x) => scale(x, { duration: 500, easing: quintOut });
 </script>
 
